@@ -7,6 +7,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       collapse = TRUE,
                       comment = "#>")
 options(rmarkdown.html_vignette.check_title = FALSE)
+setDTthreads(1)
 
 ## ----make data----------------------------------------------------------------
 # make data table
@@ -34,19 +35,27 @@ dt[,D_WO := calc_workability(A_CLAY_MI, A_SILT_MI, B_LU_BRP, B_SOILTYPE_AGR,B_GW
 dt[, I_P_WO := ind_workability(D_WO, B_LU_BRP)]
 
 
-## ----plot regime curve, eval=FALSE, fig.width = 7, fig.height = 4,fig.fullwidth = TRUE----
-#  
-#  # this is not yet clear (comment Gerard. Please, check and update)
-#  #x <- 46:227
-#  
-#  # try to plot the regime curve
-#  #ggplot(data = dt[field == 4], aes(46:227,138-(asin((-x-0.5*(-B_GWL_GHG-B_GWL_GLG))/(0.5*(-B_GWL_GHG+B_GWL_GLG)))/0.0172024), color = field))+
-#  #  geom_point()
-#  
-#  #dt4 <- data.table(dt[field == 4],x = 46:227)
-#  #dt4[,y := 138 + (asin((-x-0.5*(-B_GWL_GHG-B_GWL_GLG))/(0.5*(-B_GWL_GHG+B_GWL_GLG)))/0.0172024) ]
-#  #plot(x~y,ylim = c(-100,100),data=dt4)
-#  
+## ----plot regime curve, eval=TRUE, fig.width = 7, fig.height = 4,fig.fullwidth = TRUE, fig.cap="Regime curve of groundwater level throughout the year. The blue line is at the GHG on day 46, the red line is at GLG on day 227"----
+# plot all four fields
+dtp <- data.table(field = c(rep('1',365), rep('2', 365), rep('3', 365), rep('4', 365)),
+                  x = c(rep(1:365,4)))
+# merge with field properties
+dtp <- merge(dtp, dt, by = 'field')
+
+# calculate gws at x
+dtp[,gws_x := 0.5*((-B_GWL_GHG-B_GWL_GLG)) + 0.5*(-B_GWL_GHG+B_GWL_GLG) * sin(0.0172024*(x+46)), by = 'field']
+
+
+# plot groundwater level
+ggplot(dtp, aes(x = x, y = gws_x, col = field)) +
+  geom_line()+
+  theme_bw()+
+  ylab("Groundwater level below surface (cm)") +
+  xlab("Day of the year (1 = January 1st)") +
+  geom_vline(aes(xintercept = 227), col = 'red', lty = 2) +
+  geom_vline(aes(xintercept = 46), col = 'blue', lty = 2) +
+  scale_y_continuous(limits =c(-175,0),breaks = c(0,-25,-50,-75,-100,-125,-150,-175))
+  
 
 ## ----plot baseline, fig.width = 7, fig.height = 4,fig.fullwidth = TRUE--------
 # plot the initial rsl and score
@@ -262,7 +271,7 @@ gg2 <- ggplot(data = dt,aes(x= field, fill = field)) +
 
 
 
-## ---- include=FALSE-----------------------------------------------------------
+## ----include=FALSE------------------------------------------------------------
 knitr::write_bib(c(.packages()), "packages.bib")
 knitr::write_bib(file = 'packages.bib')
 

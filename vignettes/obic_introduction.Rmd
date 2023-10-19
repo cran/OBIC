@@ -23,6 +23,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 ```{r setup, include = FALSE}
   # load packages
   library(OBIC); library(data.table); library(ggplot2);require(patchwork)
+  setDTthreads(1)
 
   # load binnenveld data.table
   binnenveld <- as.data.table(OBIC::binnenveld)
@@ -63,7 +64,7 @@ For each field, the following properties are available:
 * field properties: ID, landuse (B_LU_BRP) and agricultural region (B_AER_CBS)
 * basic soil properties: soil type (B_SOILTYPE_AGR, B_HELP_WENR), risk for soil compaction (B_SC_WENR) and groundwater level (B_GWL_CLASS)
 * chemical, physical and biological soil properties obtained from measurements (all variables starting with "A_")
-* measurements done via a Visual Soil Assessment Form (optional, all variables starting with "A_" and ending with "BCS"). For details, see the Assessment Form of the [Bodemconditiescore](https://mijnbodemconditie.nl/aan-de-slag/download/) [@Sonneveld2014].
+* measurements done via a Visual Soil Assessment Form (optional, all variables starting with "A_" and ending with "BCS"). For details, see the Assessment Form of the [Bodemconditiescore](https://mijnbodemconditie.nl/download/) [@Sonneveld2014].
 * soil management measures taken (optional, all variables starting with "M_")
 
 ```{r, showbinnenveld}
@@ -128,7 +129,7 @@ An example of both wrapper functions is illustrated below. The soil has an OBIC 
   obic_field(B_SOILTYPE_AGR =  dt$B_SOILTYPE_AGR, B_GWL_CLASS =  dt$B_GWL_CLASS,
              B_SC_WENR = dt$B_SC_WENR, B_HELP_WENR = dt$B_HELP_WENR, B_AER_CBS = dt$B_AER_CBS,
              B_GWL_GLG = dt$B_GWL_GLG, B_GWL_GHG = dt$B_GWL_GHG, B_GWL_ZCRIT = dt$B_GWL_ZCRIT,
-             B_DRAIN = dt$B_DRAIN, B_FERT_NORM_FR = dt$B_FERT_NORM_FR,
+             B_DRAIN = FALSE, B_FERT_NORM_FR = 1,
              B_LU_BRP = dt$B_LU_BRP, A_SOM_LOI = dt$A_SOM_LOI, A_SAND_MI = dt$A_SAND_MI,
              A_SILT_MI = dt$A_SILT_MI, A_CLAY_MI = dt$A_CLAY_MI, A_PH_CC = dt$A_PH_CC,
              A_N_RT = dt$A_N_RT, A_CN_FR = dt$A_CN_FR,

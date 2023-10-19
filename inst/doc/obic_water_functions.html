@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="date" content="2023-10-19" />
+
+<title>Description of the OBI-water functions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Description of the OBI-water functions</h1>
+<h4 class="date">2023-10-19</h4>
+
+
+
+<div id="intorduction" class="section level2">
+<h2>Intorduction</h2>
+<p>In practice, agricultural soils have multiple functions and
+contribute to various ecosystem services. Soils ensure good agricultural
+production, buffer water and nutrients, store carbon, provide a habitat
+for soil organisms and facilitate aboveground biodiversity. In recent
+years, therefore, research has been conducted from all angles into the
+opportunities that sustainable soil management offers for improving the
+quality of the living environment. By improving soil management and
+identifying any bottlenecks in soil quality, a better balance can be
+found between the various ecosystem services and between agriculture and
+the environment. Sustainable soil management is therefore not only
+relevant for farmers and nature managers, but also for water boards and
+drinking water companies. For them, soil provides relevant ecosystem
+services such as water storage, water purification and nutrient
+buffering. Soil properties and soil management therefore influence the
+quality and availability of groundwater and surface water where they
+manage or extract water.</p>
+<p>The OBIC was developed in 2019 by a consortium of WUR, FarmHack and
+NMI and is an initiative of Rabobank, a.s.r. and Vitens. The primary
+focus of the current OBIC (version 1.0) is on the agricultural functions
+that a soil fulfils. Within the project “Healthy Soil, Healthy Water
+System”, drinking water companies have focused on soil quality
+assessment from an environmental perspective, focusing on groundwater
+quality and quantity. An earlier report by Geurts et al. (2021) proposed
+to expand the OBIC to include functions for groundwater recharge, water
+storage, nitrogen efficiency, and crop protection product leaching.
+These functions were to assess how soil and its management contribute to
+groundwater quality and quantity. The functions were developed and
+tested in the summer of 2021 on four plots originating from groundwater
+protection areas managed by Vitens. The results were discussed during a
+workshop with the participating farmers and stewards, site managers and
+ecologists. This report describes the newly developed functions as well
+as their evaluation as a result of the workshop and further data
+analysis.</p>
+</div>
+<div id="ground-water-recharge" class="section level2">
+<h2>Ground water recharge</h2>
+<p>The groundwater recharge is primarily controlled by the precipitation
+surplus based on crop evaporation. The quality of the soil then
+determines what part of the precipitation surplus actually infiltrates
+into the groundwater. To map this groundwater recharge, first the
+precipitation surplus is calculated, and then this surplus is corrected
+for two other soil quality characteristics, namely the rate at which
+water can infiltrate (derived from the unsaturated permeability,
+I_WRI_K) and the risk of soil sealing (I_P_SE). These soil
+characteristics give an indication of how much water infiltrates and how
+easily. The indicator value derived from this is then corrected if the
+soil is compacted or if the plot is drained.</p>
+<p>If the soil is compacted, the indicator score is reduced by 20%
+because it is more difficult for water to infiltrate and therefore the
+water holding capacity will be lower. This correction is independent of
+soil type, land use or groundwater depth. In reality, the influence of
+compaction on the infiltration rate depends on the extent of soil
+compaction and the moisture situation of the soil at the time of a rain
+shower. There can be great variation here between and within plots.
+Because this information is not yet available at this level of detail, a
+generic reduction has been chosen here depending on the risk of soil
+compaction.</p>
+<p>The correction for a higher drainage flux only takes place with
+shallower groundwater levels (at groundwater levels IIIb and IV) and the
+presence of drainage: in that situation the indicator score is reduced
+by 40%. Under wet and drained conditions a considerable part of the
+precipitation surplus will flow to the surface water. This concerns a
+first estimate; further substantiation and detailing (spread), for
+example based on soil moisture models, is needed for a reliable estimate
+for different conditions. The depth of drainage in relation to the
+presence of subsoil compaction (a plough’s sole or deeper) also plays a
+role here. Because this data is not available per plot from generic
+data, this can only be shaped within the current UBI by getting
+information through a Soil Condition Score. The correction factors for
+compaction and drainage are not applied simultaneously, because it is
+assumed that drainage has a greater impact and compaction is less
+relevant if the field is already drained.</p>
+<p>The calculation of the indicator score can be found in the formula
+below. Here the precipitation surplus weighs more heavily than the two
+soil characteristics that influence water infiltration. Therefore, the
+contribution of soil to groundwater recharge can be calculated via: (0.7
+* Precipitation surplus + 0.15 * Infiltration + 0.15 * Sealing) *
+cf_compaction/cf_drainage</p>
+</div>
+<div id="precipitation-surplus-and-unsaturated-permeability" class="section level2">
+<h2>Precipitation surplus and unsaturated permeability</h2>
+<p>The groundwater recharge function, <code>calc_gw_recharge()</code>,
+uses precipitation surplus and unsaturated permeability, among other
+things. The precipitation surplus function uses long-term weather
+averages for precipitation and potential evaporation from KNMI. For each
+crop, the growing season and the Makkink correction factor per month are
+known (TNO and Commissie voor Hydrologisch onderzoek 1988). Thus, based
+on the cultivated crop (the cropping plan) and the presence of catch
+crops, the actual evaporation and precipitation surplus per month can be
+calculated. The calculation rules can be viewed in more detail on the
+github page of the Open Soil Index Calculator. The formula for
+calculating the precipitation surplus is as follows: P_surplus = P -
+(ETpot * cf_Makkink).</p>
+<p>P stands for precipitation in mm, ETpot is the potential
+evapo-transpiration in mm and cf_Makkink is the Makkink correction
+factor. The figure below shows how precipitation surplus is assessed in
+light of sustainable land use and protection of groundwater recharge. A
+large proportion of crops have a precipitation surplus of around 400 mm
+per year. With an annual average precipitation of 850 mm, the
+precipitation is thus calculated to be equally distributed between crop
+and groundwater. Therefore, it was decided to assign an indicator score
+of 1 starting from a precipitation surplus of 400 mm (black line). Since
+grassland has a higher evapo-transpiration compared to cropland, the
+score for grassland is calculated using a different formula, it reaches
+a score of 1 at a precipitation surplus of 250 mm (grey line).</p>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>The OBIC already contains a function for saturated permeability, this
+was then converted to unsaturated permeability based on Wösten et
+al. (2001). The formula for this conversion is as follows:
+<img src="data:image/png;base64,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" width="45%" height="45%" style="display: block; margin: auto;" /></p>
+<p>Here Ksat is the saturated permeability in m/d, h is the hydraulic
+head at the inflection point, the parameters α, n and l determine the
+shape of the curve and are calculated with the OBIC function
+pFpara_ptf_Wosten2001. The logistic function for assessing the indicator
+score can be found below.</p>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="nitrogen-use-efficiency" class="section level2">
+<h2>Nitrogen use efficiency</h2>
+<p>The OBIC already contains a function for nitrogen leaching (in the
+form of nitrate), but it only calculates leaching based on the nitrogen
+supply capacity of the soil, independent of fertilization practices. The
+new function, <code>calc_n_efficiency()</code>, which aims to protect
+groundwater quality given agricultural use, calculates the nitrogen
+surplus from applied manure. The formula for this calculation is as
+follows: N_surplus = (1 - NUE * cf(P,K,pH)) * N_fertilization *
+fr_applicationspace - catchcrop</p>
+<p>The surplus is calculated by multiplying the amount of applied N by
+the nitrogen use efficiency, NUE (this is a fraction). If the phosphate
+and potassium levels are sufficient and the pH of the soil is optimal
+for crop growth, it is assumed that the NUE is higher. Therefore, when
+availability for P, K is high and pH is goed (a OBI score for these
+functions higher than 9), NUE is increased by 10% using the correction
+factor cf(P,K,pH). This function also includes a variable for the
+fraction of the application space that is utilized
+(fr_applicationspace). This is because if the nitrogen supply of the
+soil is high, less fertilization is needed to meet the crop requirement.
+In addition, the function assumes an uptake of 75 kg N ha-1 by catch
+crops (CDM, 2017). For the time being it is assumed that part of this
+nitrogen is added to the soil organic matter in the year after tillage
+(thus increasing the N-delivery capacity) and part is taken up by the
+succeeding crop. Based on the nitrogen surplus and leaching fractions
+determined for soil type, land use and groundwater level, the leaching
+to groundwater is calculated. The fraction of the nitrogen surplus that
+leaches to groundwater as nitrate (mg NO3 L-1 per kg N surplus) were
+calculated using the modeling tool STONE (Groenendijk et al., 2016). The
+calculated value for nitrogen leaching is then used to calculate the
+indicator score. Because there is a small overlap with leaching from N
+supply, it is worth considering integrating the two functions in the
+future.</p>
+<p>Once the soil’s contribution to high nitrogen utilization has been
+identified, it can also be assessed in light of protecting groundwater
+quality. For this purpose, a logistic assessment function is used: soils
+with a (relative) nitrate leaching higher than 25 mg NO3 L-1 have a high
+risk of deteriorating groundwater quality and therefore receive a lower
+soil quality assessment. Since the legally allowed concentration for
+nitrate in groundwater is 50 mg NO3 L-1, soil quality was chosen to be
+rated as extremely poor (score = 0) once the leaching exceeds this
+critical standard. To improve soil quality such that little nitrate
+leaches out, soil quality is assessed such that the score decreases
+sharply from a leaching of 20 mg NO3 L-1.</p>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="pesticide-leaching" class="section level2">
+<h2>Pesticide leaching</h2>
+<p>The sensitivity of the soil to pesticides leaching is calculated by
+the function <code>calc_pestide_leaching()</code>, using a meta-model of
+the leaching model PEARL, as described by Tiktak et al. (2006). This
+meta-model calculates what fraction of a pesticides leaches to a depth
+of 1 meter. The formula used for the meta-model is as follows:
+fr_leaching = exp((-0.34 / 60 * ((vfw + BD * OM * K_om )) / flux ).</p>
+<p>In the formula, vfw is the volume fraction of water in m3 m-3 , in
+the OBIC this is the indicator D_WRI_WHC, BD is the bulk density in kg
+dm-3, OM is the fraction of organic matter in kg kg-1, Kom is the
+coefficient for the distribution of pesticides between organic matter
+and water in dm3 kg-1, finally, flux stands for the vertical water flux
+in m d-1.</p>
+<p>To map the attenuating effect of the soil on the leaching of
+pesticides, a so-called worst-case scenario is calculated, where the
+leaching is calculated for a very persistent pesticides. For this
+purpose, a Kom value of 10 dm3 kg-1 is used (Tiktak et al., 2006). Note
+that the OBIC hereby provides insight into the role of soil quality in
+reducing leaching; it does not provide an evaluation of aboveground
+resource use. To quantify the role of soil as well as soil management in
+preventing pesticides of leaching, first each soil is compared to a soil
+that is unable to degrade or bind pesticides. This is done for soils
+with extremely low organic matter content. This minimum organic matter
+content is determined by taking the 0.001 quantile per soil type for all
+plots in the Netherlands. A relative score is calculated by dividing the
+leaching fraction by the maximum leaching that could have occurred if
+the soil had not been properly managed. Because the effect of soil
+management (including management measures around the use of pesticides)
+is also taken into account within the OBIC, this information can
+additionally be used to assess the risk of leaching. If measures are
+taken to reduce the use of pesticides, such as the use of biological or
+mechanical weed control or decision support systems, the leaching
+fraction for the current situation is reduced by 25%.</p>
+<p>In a situation with an OM content of 3% and a precipitation surplus
+of 400 mm, the risk score for all soils except peaty clay is around
+0.92. If the OM content is increased to 6% the score goes to a value of
+0.84. If measures are taken to use less pesticides, these scores drop to
+values around 0.7 and 0.6 respectively. With an OM content of 15%
+(occurring in reclaimed peat soils) and application of measures, the
+risk score further decreases to a value around 0.5. Therefore, it was
+decided to assess the leaching risk as shown below. With a lower
+precipitation surplus, the leaching fraction decreases, because the
+vertical water flux becomes smaller. Therefore, a higher score can be
+obtained for pesticide leaching. However, a lower precipitation surplus
+has a negative effect on the groundwater recharge score, a trade-off.
+Since a precipitation surplus of 400 mm has been identified as optimal
+in the precipitation surplus function, this value was used for
+calibration of this indicator score.
+<img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-CommissieDeskundigenMeststoffenwet2017" class="csl-entry">
+Commissie Deskundigen Meststoffenwet. 2017. <span>“<span class="nocase">CDM-advies ‘Groenbemesters’ 17-02-2017</span>.”</span>
+Wageningen: WOT Natuur &amp; Milieu. <a href="https://www.wur.nl/upload_mm/e/b/5/62ea1645-e0ae-41bf-9674-472b422ff1e7_1705577_Oene%20Oenema%20bijlage%201.pdf">https://www.wur.nl/upload_mm/e/b/5/62ea1645-e0ae-41bf-9674-472b422ff1e7_1705577_Oene%20Oenema%20bijlage%201.pdf</a>.
+</div>
+<div id="ref-Geurts2021" class="csl-entry">
+Geurts, J, A van Loon, and G Ros. 2021. <span>“<span class="nocase">Gezonde bodem , gezond watersysteem, BTO rapport
+2021.026</span>.”</span> Nieuwegein: KWR. <a href="https://www.nmi-agro.nl/wp-content/uploads/2022/08/geurts_2021_gezond.pdf">https://www.nmi-agro.nl/wp-content/uploads/2022/08/geurts_2021_gezond.pdf</a>.
+</div>
+<div id="ref-Groenendijk2016" class="csl-entry">
+Groenendijk, Piet, Erwin van Boekel, Leo Renaud, Auke Greijdanus, Rolf
+Michels, and Tanja de Koeijer. 2016. <span>“<span class="nocase">Landbouw en de KRW-opgave voor nutriënten in regionale
+wateren : het aandeel van landbouw in de KRW-opgave, de kosten van
+enkele maatregelen en de effecten ervan op de uit- en afspoeling uit
+landbouwgronden</span>.”</span> Wageningen: WenR. <a href="https://edepot.wur.nl/392093">https://edepot.wur.nl/392093</a>.
+</div>
+<div id="ref-Tiktak2006" class="csl-entry">
+Tiktak, A., J. J. T. I. Boesten, A. M. A. van der Linden, and M.
+Vanclooster. 2006. <span>“<span class="nocase">Mapping ground water
+vulnerability to pesticide leaching with a process-based metamodel of
+EuroPEARL.</span>”</span> <em>Journal of Environmental Quality</em> 35
+(4): 1213–26. <a href="https://www.researchgate.net/profile/Aaldrik-Tiktak/publication/40114135_Mapping_the_vulnerability_of_European_groundwater_to_the_leaching_of_pesticides_with_a_process-based_metamodel_of_EuroPEARL/links/54a688c60cf257a6360a4923/Mapping-the-vulnerability-of-European-groundwater-to-the-leaching-of-pesticides-with-a-process-based-metamodel-of-EuroPEARL.pdf">https://www.researchgate.net/profile/Aaldrik-Tiktak/publication/40114135_Mapping_the_vulnerability_of_European_groundwater_to_the_leaching_of_pesticides_with_a_process-based_metamodel_of_EuroPEARL/links/54a688c60cf257a6360a4923/Mapping-the-vulnerability-of-European-groundwater-to-the-leaching-of-pesticides-with-a-process-based-metamodel-of-EuroPEARL.pdf</a>.
+</div>
+<div id="ref-TNO1988" class="csl-entry">
+TNO, and Commissie voor Hydorlogisch Onderzoek. 1988. <span>“<span class="nocase">Van penman naar Makkink - Een nieuwe berekeningswijze
+voor klimatologische verdampingsgetallen</span>.”</span> ’s Gravenhage:
+TNO. <a href="https://edepot.wur.nl/182292">https://edepot.wur.nl/182292</a>.
+</div>
+<div id="ref-Wosten2001" class="csl-entry">
+Wösten, J. H. M., G. J. Veerman, W. J. M. de Groot, and J. Stolte. 2001.
+<span>“<span class="nocase">Waterretentie- en
+doorlatendheidskarakteristieken van boven- en ondergronden in Nederland:
+de Staringreeks</span>.”</span> Wageningen: Alterra, Research Instituut
+voor de Groene Ruimte. <a href="https://edepot.wur.nl/43272">https://edepot.wur.nl/43272</a>.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

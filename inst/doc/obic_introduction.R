@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -10,15 +10,16 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 ## ----setup, include = FALSE---------------------------------------------------
   # load packages
   library(OBIC); library(data.table); library(ggplot2);require(patchwork)
+  setDTthreads(1)
 
   # load binnenveld data.table
   binnenveld <- as.data.table(OBIC::binnenveld)
 
-## ---- showbinnenveld----------------------------------------------------------
+## ----showbinnenveld-----------------------------------------------------------
   dim(binnenveld)
   binnenveld[1]
 
-## ---- echo=FALSE, out.width = '85%', out.height = '85%', fig.cap = 'Figure 1. Graphic representation of how measured soil properties are aggregated to scores.'----
+## ----echo=FALSE, out.width = '85%', out.height = '85%', fig.cap = 'Figure 1. Graphic representation of how measured soil properties are aggregated to scores.'----
 # ![](OBIC_score_integratie.png){widht = 25%, height = 20%}
 knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
 
@@ -35,7 +36,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   obic_field(B_SOILTYPE_AGR =  dt$B_SOILTYPE_AGR, B_GWL_CLASS =  dt$B_GWL_CLASS,
              B_SC_WENR = dt$B_SC_WENR, B_HELP_WENR = dt$B_HELP_WENR, B_AER_CBS = dt$B_AER_CBS,
              B_GWL_GLG = dt$B_GWL_GLG, B_GWL_GHG = dt$B_GWL_GHG, B_GWL_ZCRIT = dt$B_GWL_ZCRIT,
-             B_DRAIN = dt$B_DRAIN, B_FERT_NORM_FR = dt$B_FERT_NORM_FR,
+             B_DRAIN = FALSE, B_FERT_NORM_FR = 1,
              B_LU_BRP = dt$B_LU_BRP, A_SOM_LOI = dt$A_SOM_LOI, A_SAND_MI = dt$A_SAND_MI,
              A_SILT_MI = dt$A_SILT_MI, A_CLAY_MI = dt$A_CLAY_MI, A_PH_CC = dt$A_PH_CC,
              A_N_RT = dt$A_N_RT, A_CN_FR = dt$A_CN_FR,
@@ -48,7 +49,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # test the obic field function via obic_field_dt and give only the final score
   obic_field_dt(dt,output = 'obic_score')
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # run obic_field to retrieve indicators
   obic_field_dt(dt, output = 'indicators')
 
@@ -75,7 +76,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     ylab('Bulk density (kg / m3)') + xlab('Soil organic matter content (%)') + 
     theme(legend.position = c(0.8,0.8)) + ggtitle('Estimate bulk density from SOM and clay content') 
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate soil bulk density
   dt[, D_BDS := calc_bulk_density(B_SOILTYPE_AGR, A_SOM_LOI, A_CLAY_MI)]
 
@@ -91,7 +92,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # estimate crop rotation fraction for sugar beet
   dt[, D_CP_SUGARBEET := calc_rotation_fraction(ID, B_LU_BRP, crop = "sugarbeet")]
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate nitrogen supply (kg N / ha)
   dt[, D_NLV := calc_nlv(B_LU_BRP, B_SOILTYPE_AGR, A_N_RT, A_CN_FR, D_OC, D_BDS, D_GA)]
 
@@ -146,7 +147,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate phosphate availability index (unitless)
   dt[, D_PBI := calc_phosphate_availability(B_LU_BRP, A_P_AL, A_P_CC, A_P_WA)]
 
@@ -193,7 +194,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate potassium availability index (unitless)
   dt[, D_K :=  calc_potassium_availability(B_LU_BRP, B_SOILTYPE_AGR, A_SOM_LOI, A_CLAY_MI, 
                                            A_PH_CC, A_CEC_CO, A_K_CO_PO, A_K_CC)]
@@ -243,7 +244,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate S supplying capacity
   dt[, D_SLV := calc_slv(B_LU_BRP, B_SOILTYPE_AGR, B_AER_CBS,A_SOM_LOI,A_S_RT, D_BDS)]
 
@@ -293,7 +294,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate magnesium availability index (unitless)
   dt[, D_MG := calc_magnesium_availability(B_LU_BRP, B_SOILTYPE_AGR, A_SOM_LOI, 
                                            A_CLAY_MI, A_PH_CC, A_CEC_CO,
@@ -346,7 +347,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate Cu availability index
   dt[, D_CU := calc_copper_availability(B_LU_BRP, A_SOM_LOI, A_CLAY_MI, A_K_CC, A_MN_CC, A_CU_CC)]
 
@@ -393,7 +394,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE---------------------------------------------------------
+## ----results = FALSE----------------------------------------------------------
   # estimate Zn availability index
   dt[,  D_ZN := calc_zinc_availability(B_LU_BRP, B_SOILTYPE_AGR, A_PH_CC, A_ZN_CC)]
 
@@ -440,7 +441,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # estimate distance to required pH
 #    dt[, D_PH_DELTA := calc_ph_delta(B_LU_BRP, B_SOILTYPE_AGR, A_SOM_LOI, A_CLAY_MI, A_PH_CC, D_CP_STARCH,
 #                                     D_CP_POTATO, D_CP_SUGARBEET, D_CP_GRASS, D_CP_MAIS, D_CP_OTHER)]
@@ -498,7 +499,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # estimate importance of CEC supporting crop development
 #    dt[, D_CEC := calc_cec(A_CEC_CO)]
 
@@ -519,7 +520,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
 #  
 #     p1
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # reformat GWL_CLASS
 #    dt[, B_GWL_CLASS := format_gwt(B_GWL_CLASS)]
 #  
@@ -588,7 +589,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # estimate the presence / risk for surface sealing and wind erodibility
 #    dt[, D_SE := calc_sealing_risk(A_SOM_LOI, A_CLAY_MI)]
 #    dt[, D_WE := calc_winderodibility(B_LU_BRP, A_CLAY_MI, A_SILT_MI)]
@@ -642,7 +643,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # assess the crumbleability and aggregate stability
 #    dt[, D_CR := calc_crumbleability(A_SOM_LOI, A_CLAY_MI,A_PH_CC)]
 #    dt[, D_AS := calc_aggregatestability(B_SOILTYPE_AGR,A_SOM_LOI,A_K_CO_PO,A_CA_CO_PO,A_MG_CO_PO)]
@@ -700,7 +701,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p4
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #      # overwrite soil physical functions for compaction when BCS is available
 #      dt[,D_P_CO := (3 * A_EW_BCS + 3 * A_SC_BCS + 3 * A_RD_BCS  - 2 * A_P_BCS - A_RT_BCS)/18]
 #      dt[,D_P_CO := pmax(0, D_P_CO)]
@@ -779,7 +780,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     # print both figures
     p1+p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # estimate the plant available water in topsoil
 #    dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'plant available water')]
 #  
@@ -851,7 +852,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     # compose figure in 2 x 2 layout
     (pclay + pcsand) / (pcsilt + pcsom)
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # calculate the index for the potential mineralizable nitrogen pool
 #    dt[, D_PMN := calc_pmn(B_LU_BRP, B_SOILTYPE_AGR, A_N_PMN)]
 
@@ -908,7 +909,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # plot side by side
   p1 + p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # Calculate disease resistance
 #    dt[, I_B_DI := ind_resistance(A_SOM_LOI)]
 
@@ -946,7 +947,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
    dt <- data.table(nempar = c('A_RLN_PR_FAL', 'A_SN_DI_DES'), nr = 5, nem_ind = c(ind_nematodes(265, A_RLN_PR_FAL=5),ind_nematodes(265, A_SN_DI_DES=5)))
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # calculate potential for N leaching to groundwater
 #    dt[,D_NGW := calc_nleach(B_SOILTYPE_AGR, B_LU_BRP, B_GWL_CLASS, D_NLV, B_AER_CBS, leaching_to = "gw")]
 
@@ -1050,7 +1051,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   # print figures p2 and p5
   p1 + p2
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #      # Calculate organic matter balance
 #      dt[, D_SOM_BAL := calc_sombalance(B_LU_BRP,A_SOM_LOI, A_P_AL, A_P_WA, M_COMPOST, M_GREEN)]
 #  
@@ -1151,14 +1152,14 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     # print figures
     p2 + p3
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #      # evaluate measures
 #      dt.measure <- OBIC::obic_evalmeasure(dt.score, extensive = FALSE)
 #  
 #      # make recommendations of top 3 measures
 #      out.recom <- OBIC::obic_recommendations(dt.measure)
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # Be aware these functions below are not given here to be evaluated.
 #    # They illustrate how the different indices can be evaluated (do not execute them here)
 #  
@@ -1318,7 +1319,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
                   legend.text = element_text(size=10), axis.text = element_text(size=10), legend.position = c(0.75,0.2))
 p.ar+p.gr
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #      # load weights.obic (set indicator to zero when not applicable)
 #      w <- as.data.table(OBIC::weight.obic)
 #  
@@ -1368,14 +1369,14 @@ p.ar+p.gr
 #      # for case that a cat has one indicator or one year and has NA
 #      out.score[is.na(value), value := -999]
 
-## ---- aggreagate indicators per category, results= FALSE, eval=FALSE----------
+## ----aggreagate indicators per category, results= FALSE, eval=FALSE-----------
 #      # calculate correction factor per year; recent years are more important
 #      out.score[,cf := log(12 - pmin(10,year))]
 #  
 #      # calculate weighted average per indicator category per year
 #      out.score <- out.score[,list(value = sum(cf * pmax(0,value)/ sum(cf[value >= 0]))), by = cat]
 
-## ---- holistic obi score, results = FALSE, eval = FALSE-----------------------
+## ----holistic obi score, results = FALSE, eval = FALSE------------------------
 #    # merge out with number per category
 #    out.score <- merge(out.score,dt.melt.ncat, by='cat')
 #  
@@ -1386,17 +1387,17 @@ p.ar+p.gr
 #    out.score <- rbind(out.score[,list(cat,value)],
 #                       out.score[,list(cat = "T",value = sum(value * cf / sum(cf)))])
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #    # For example
 #    OBIC::obic_field_dt(binnenveld[ID == 1], output = 'scores')
 #  
 #    OBIC::obic_field_dt(binnenveld[ID == 1], output = 'obic_score')
 
-## ---- eval = TRUE, echo=FALSE-------------------------------------------------
+## ----eval = TRUE, echo=FALSE--------------------------------------------------
   OBIC::obic_field_dt(binnenveld[ID == 1], output = 'scores')
   OBIC::obic_field_dt(binnenveld[ID == 1], output = 'obic_score')
 
-## ---- echo=FALSE, fig.height= 6, fig.width=6.8--------------------------------
+## ----echo=FALSE, fig.height= 6, fig.width=6.8---------------------------------
     # Load data
     dt <- binnenveld
     
@@ -1444,7 +1445,7 @@ bar[grepl('^S_E_', variable), cat := "Environmental"]
    
  g2p
 
-## ---- include=FALSE-----------------------------------------------------------
+## ----include=FALSE------------------------------------------------------------
 knitr::write_bib(c(.packages()), "packages.bib")
 knitr::write_bib(file = 'packages.bib')
 

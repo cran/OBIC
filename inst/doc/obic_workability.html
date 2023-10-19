@@ -12,30 +12,42 @@
 
 <meta name="author" content="Brent Riechelman" />
 
-<meta name="date" content="2022-04-01" />
+<meta name="date" content="2023-10-19" />
 
 <title>Workability illustration</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -53,55 +65,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -110,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -128,29 +146,209 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <style type="text/css">
-/* for pandoc --citeproc since 2.11 */
+
 div.csl-bib-body { }
 div.csl-entry {
-  clear: both;
+clear: both;
 }
 .hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+margin-left:2em;
+text-indent:-2em;
 }
 div.csl-left-margin {
-  min-width:2em;
-  float:left;
+min-width:2em;
+float:left;
 }
 div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
+margin-left:2em;
+padding-left:1em;
 }
 div.csl-indent {
-  margin-left: 2em;
+margin-left: 2em;
 }
 </style>
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -164,7 +362,7 @@ div.csl-indent {
 
 <h1 class="title toc-ignore">Workability illustration</h1>
 <h4 class="author">Brent Riechelman</h4>
-<h4 class="date">2022-04-01</h4>
+<h4 class="date">2023-10-19</h4>
 
 
 
@@ -322,12 +520,40 @@ grasland, blijvend
 </tr>
 </tbody>
 </table>
-<p>We have two arable fields on marine clay with wheat and sugar beets as well as two grassland fields, one on sand and one on peat. Note that GLG is a measure for the average of the three lowest water levels in a period of eight years and GHG is the average of the three highest water levels over a period of eight years. It is assumed that the water level on our fields shifts from GHG on February 15th to GLG on August 15th and back following a sinusoidal curve. With this knowledge one can easily see that field 4 is much wetter than the other fields, both in winter as in summer. When comparing fields 1 and 2, we see that field 1 is drier in summer but more wet in winter. Lets plot the relative season length and indicator score for workability of these fields.</p>
+<p>We have two arable fields on marine clay with wheat and sugar beets
+as well as two grassland fields, one on sand and one on peat. Note that
+GLG is a measure for the average of the three lowest water levels in a
+period of eight years and GHG is the average of the three highest water
+levels over a period of eight years. It is assumed that the water level
+on our fields shifts from GHG on February 15th to GLG on August 15th and
+back following a sinusoidal curve. With this knowledge one can easily
+see that field 4 is much wetter than the other fields, both in winter as
+in summer. When comparing fields 1 and 2, we see that field 1 is drier
+in summer but more wet in winter. Lets plot the relative season length
+and indicator score for workability of these fields.</p>
+<div class="float">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAGACAMAAABFpiBcAAAA5FBMVEUAAAAAADoAAGYAAP8AOpAAZrYAv8QzMzM6AAA6ADo6AGY6OmY6OpA6kNtNTU1NTW5NTY5NbqtNjshmAABmADpmAGZmOgBmZgBmkJBmtrZmtv9uTU1uTW5uTY5ubqtuq+R8rgCOTU2OTW6OTY6OyP+QOgCQOjqQkDqQkGaQtpCQ27aQ29uQ2/+rbk2rbm6rbo6ryKur5P+2ZgC22/+2/9u2///HfP/Ijk3I///bkDrb/7bb///kq27k///r6+v4dm3/AAD/tmb/yI7/25D/27b/29v/5Kv//7b//8j//9v//+T///8VSqsIAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVR4nO2diXoct3KFSctkaCWiY8vZKNuiYjK5TqR7o0lEaa4tjikm3Pr93yeNbvT0hqUKKCyNrvPZojTLmRr0T2wNoA4qFitjHaQOgMUyiQFlZS0GlJW1GFBW1mJAWVmLAWVlLXdA/4bF0ioHQNUPXzsbCj0j8KCyiBbGH3mEQenBgNrEgBJbMKCNGNB0YVB6FAsomQeHQWzBgNJ6cBjEFgworQeHQWzBgNJ6cBjEFgxoIx4kpQuD0oMBtYkBJbZgQBsxoOnCoPRgQG1iQIktFgHow5vT7z5bYlgSGeE91hpGGkCf3l1Uv39viWGtlySYxSLDSAPowy+fqrufPpljWOslCWaxyDDSAHr38+fq4V/fV3Kp3TWLpVEaQL981wEqxIMkKgseJBnkVoMaYmBA0RYMqEGZ9UEZ0HRhUHqkGsW/Dj2KZ0DThUHpwfOgESw4DHePYu8kkXlwGMQWDCitB4dBbMGA0npwGMQWDGgjHiSlC4PSgwG1iQEltmBAGzGg6cKg9GBAbWJAiS0YUFoPDoPYggGl9eAwiC0Y0OpKapmXJJjFIsMoBtCrgUyPobVWMoJZrA1QDYDTQZIzp0sigwdJBiUA1IScZhSPp5QBJbZYCaA20EzTTChIGVBiixUACgHMNg8KhpQBJbZYIKCYTVQCLKoNWYRWrEDKAlD1w4pfNPQox/rLaq9Il1SDhvdYZw2qfnj6PVzG4KCyMBuvlYxgFmUC6jiTCS0Lg/1ayQhmUSKgDnSiF4voPmNJZPAgyaBggLpVng6rmdQfxIASW5QFqPNNSrfldoqPY0CJLbIAdHvQ6IVPDNdOTXsn5/Wg089kQIkt0gN6/7Ijc3tw+NY5huvKHc/ew0FjRJcEaHiPEgC9/4cP/aOjf+BiSHhJhoiulYxgFgoPQ0uZex/UU84efWe0aDJSWCgmuA0vZkC1kuWWOgw6izzDsIwzAgF6e9IMkr6yt+/6GPzKgmLTXFN2SyJjeYMk6zA4DKCPl0eId2YLaFN+DCixxcADMEsTBtD7l2eId2YMqNdMVy8GVOUBKtpQNWhKQHdCz8QfJJeEAFEGdO4BLNZAfdAbWO/TGAO+LHatpg+gfaZheCOaFRmpLRoPcJGWM0hSkngtn/GAVN5xdTeosiIjvYW4AwMvzlBNPOwmpzEGTFnoELy2vcAuaeGFaDZk5GCBW14Re5B09+r09KKqfj89Pf17siQKeviuQa8yam+Rdm99MYAi50UiD5JE7pm7H99XHy/sMQC/h6ZuVI3inRAdLkt1eLsijHAWCxgkYY97CdUHfa7ufX4RqT0+Xjz9+f3gQS9Adcypp5kcEB1PK7sxyoC2usLf+gjVxB/oB0l1Lfrw5rRp6X1TIda1p+6pZ9q3OH9ao6z3gf6ROgCzXMou/r14kSNJtPJ9Lepcg5qqQ/1EPbIWnS1tQL1b7RHKIusa1G35TURAP56efi8yJL3u/t31Qx0BhYCm9kAhOrNwaOeTt61kHh7Lw9w8AgEq5pmUN+TvXu2HR56AgiDTeSAIVVmQb8+PYpEwjFGB5QDoRrCpIFTyKbIdP/3FY5oJOq2p9YATqraIfgDZogEdl1YGgMp50PkNTzH/KYZH9c9v9wN5PKBgvPQe4GZeY4EidNWAzrpEOQOKicEAF8DUvpoJSKjOIvIJeYsdJM1LKQNAq61A8/6l765OpWB1H2C5nWcvAVGLrhhQRRnlAGh1A991jAQUWPFB1oOCUDdZQCvR1QLqfxTG4vYkQbuOsAXLzjNVnaKdMbpAQHWdoKIBRd6qtJaFvRK1WIC6oqscJNEcx7awffHYe+mAsrA52i3shK4RUH2ppAZU3ImXi5k8TxaZCb3UA1IWFlOAhZXQ9QFqaleSA1prQ3M201ieS5G0MvtCLCKc0rwsQI3lkQOgKAEBxeGJ2dXpDagN0XUNkmzd8kIBRVafqG3HJu/ojZqHRRaA0nZ4FgMotnnH7Ys3uEcfFnhY5AAo8ZBxKYCi+5/Igxtg25osCnnO/UIAJZ90WwignlsyIdJ9BG5q2t+DIIyAHpbbFqD7FgUC6rytPTKgAc+5XwCgQW78hgJ0e3Bwtv36N58Y+u/hfuwCpiw0nxJ9eQRRGGE8oi+dCTUP+vVfX55Bz7izAepxLgiqLNSfE32BmVrZAxpo8WGw9aBiSSh0Pah5X5/bNkzdrk76T5orWQrQdLs6g33lLABVPyx/0RyrT6fjF1Wf5VTt0GcKyXoUj9ujlUENWm1FE0+yYNm1eXc7H1R3/hhaV+7bxNTKGNCgWwhzX7Ds3P90PMB2/nnOV5U2U0i+gIbdhJ35NJPn2Z4Ol4QO0MGVK3iQFCoFdae8AfXl0+WSTD/T46pSprLJFNDg56zEPrgBEUMiQKcf6nVVrwg8yCzIwwicI71R5IMbMDFc+/PpdknGH+t3VR3Oc1MrQ0BdT6PMANDA++Ih8snyMSLU+6piT8RUK79BUpzTUhlQhWgBxZ4prFZugBKfN61tLBd4cANMXnmShsVFcFUpci3lBSj1if36zlzu86DO8kvkNSgwks6fP6I5AUqf8yQ+oBjlmEy2LzGiMHwRzWiQRJ81yjAaZkA12pcZWRjJUy0RAUrfGJhma8pJ5EXsQQ9o8lRLNN1p+sSQxtnEYIm8Hi/PoCllswR0X2yUYaRNtUQxIREgDPNsd7hpps2L6ga2pD7DQZKQXDdCe0mcEc1hkBQmOXkqQLdHi50HlQoBqHMXLgNAie6JTTwstwvD3eqs6VRsSpI5EB/enH732RJDckDbsiO/JG7duNSAyqjJS8N2OzvgYpGN6uSwNrXH07uL6vfvLTG4l8VxrWfHx14eQmEArZxq0cSAEq7LGnlYl1tEnmaS2bsefvlU3f1Elky20XGv+SPHxrdqtcOHodR8FaW/BUUYUPV1PnEY9uVAIc4Hfakfv8sciHc/f27yyvqmQmwkEQS8CO/tmzhRq6tkG+vwChiqvXgjAypzIIo8SS2gQh41qK1yHHs4VKa7cFVX9FRLbh7jHjNtGID1lCGa+O1Bp9Eovk2FKP5y0deghhhsZQGBTeWBg3QXjgzUYCkRoF45jmxhQNb7Bl1up9HHC+8+qB0y8ygejmhAQFGIJhkkzeOjLA3QevRQd5I0gMociCLjsccoHoKXbZoJXI/6L+s3hQFGNAWgYQ7xyQFQfQ0qcyB6zIMCwYLMg4KsrgkINYUBRDQ6oMGOQes8YOUa7OAG2Llhphg0/UegKXCi3m4YfmsUCNHYgIY7SFJ6AE88CFWDKgZJ2BhmZeEwnQmcCTBbhN+7B7i5FHWQpI+HLAxooS5nPajTZDuwPE3e13F2P9sIjQlo2NP2Gw9wkS4EUNd7QeDy1H9AJEBttWg0QM1xFAIobRPvfKcSV56aD0EVp18YMciwhRA+4xPuVz5kDXr/AyDNnD6Grizc6HRYzaT+RWh7TH6IgttWPR9RBknRusLegG4PDn/9Zo/XrfyrcX2nooknWLDsXHu6LbdTfJwcc7pFMfIAySsPgxegsdLi4oadajgm85jOgHo38c5tu/t60OlHombtNIo1AekBKOV0rM0DU5ZqOG6/eav6JxbQjWcN6t739FmwPKlFowNaud/CcQaU9oaWRaiiVMIh9mQeCSofL5uBjvhrPe45/BMUUDlIgqQ61sWQdAXkkFDUjTmqMOa16JKWBFjkD2hDZP1/czzd9uvf6r+KY2zuXyJrUK8Yki7RHRCKWntDGMZVyHVu+s9xscBpvvzGNNAwAnrTnrB01v11uxpAB2WGWr1IG8YQnTClgd4f5R/GfIWtsSNnBFQu7Hwh/iq6k7fPoYA2i5aB06BZAlrtby8lBHQIEH1pXLns3vMOYzf1sAw0zIDKQQ4e0M2RqG63NIm8nESxq/N4YhEjI+NMV4gzcBGDJMcN+tSAWsfB5iZejnK6Jh48ir9v08wtfF9829CnBlRI7GCCvA4KqPsBNr7fZLwNETBNYxkk1fVmTWkzSDpCDJLu2yRJiwe01vHQIkLSZZ1ADTIEUKeWfWzhoRGgkFlEI6DNNNPhW/w00+PlC1H7boBNfIj9gi6pEJUa7QUNtckTpivbXlBbKkSrQWiNyg+0yzbc6XZH0Hn6XAdJncVoEsStDqUIQ/50rACvrvxqzmkYbhocJgS9h72Q5XauIiKjL8vkgApdoXDrX0scBlq73gN8j5ABBVn0v+5OhIYh48oM6vzpbABF3MNmQIEWXZFmBGinK7Vih2HV/sRVzBKLYgGlGsXPlqW6EBqLjFTpuGGSJYdbAsSA2jRb2O9AKANadeU2nlm2K9iWD9jp36YYcgO06mpRPKEMqCw1/JmYwc4HhW9JWhCgbQEzoA5q+cR7hGziHy8XnOVDZ+FEaOrhM52HF6DHDh7hAL05gDbziwJUlDIDitZuMDjKAdC6iYcffrMsQEVBYwllQHeDqfkMAIVmSDLGkO8lQRO6ekB3yj0KEIVq4jcpatDzgZ4N/o42soWB3c239kHS+MZ7FoA260Wi9UEVIA5H8V6cqsPAEbpyQI/HDU4mgNbaRBjF69BTTDO5QaoOY4c6UWLVgB5P+MwCUJlMFpYw3h1QA3GaeVA8pJowdphadM2Azmc9YgCq2J00uZMEY9MUg+V7gFBTeuAg1YWBIXTFgyTFrFwEQG8UN4lA9+JFJkSRKElmRDTGYPoeUMS0HnBGtRY7+GBptYAq77yFB3Rz+Ku5BpWpaNS1qEik0GZENMeg/x7wCtAMuZ/F4OadTxhALRLQpnRmU3IkgO5mGj1taeLbIx7Evrm5RH4kmRHRHIPme5C0zwgrvQWc0HUCeqzmM48+aDPDpNzVKdLPyIyIFToVYo0U8JXATXNww7naHWAuGRZDybZpLqracvHdZhgd0CbBnMyIKB+C1qCouhO+msliarDoVuBaP2KNo3hZKop7bhnUoMomvk2F+GWfH2nfD4UBipweQiy3M4NvsoASuj5Aj/V8ZgGofpD08fX+bxhA0VPsuPWgBkaNFsBdDKsD1LjHMAtAdWobdpkR0RzD4Hs4307H3C51sdiXv5nQtQ2SzHtgc7iTpJXMcSwzIhpj2H8Pj9UemLLQ1KJmCxih6wLUtkc7NaBdDhqiNDRei5GQl0T1UUBAbcnAfLUcQK3nsKQGFC0ToAHWypmkqEWhgJoq0TUBaj8nqCRA3fF03jQ3/UiLBYjQ9QySRu1IzoDWo/gzaMpjLaA+1af7rs7Jh9osRoQastV5ahmAjr6/bttBDoBuvv5re4atRwx+xemx7XjczlstRtdBTehaAAXxmQOgzQG2Zws+wHZAKA5QdSW6DkCPYXwqPAxNZbGAenr0RWa3mFwKBaGrGCRNvjcCUFNPLlATvxVNvHo1EziGxJekKzU0oApC1wAomM+Zh3GkEWqQdAPf8ZEpoF1XFGAxI1ST79NHqUvDYjH7ylBAbSuAMp9m8pWnxznQYnY1JpereEBnjYbp4IChh3WeplhAaQ4Pq3+9nQCdXLHSB0koPgcegHnEoE18yrOZqE63OwdZKAh1PqpArYwBVUxcwACFTHOHGiTpt3yAY8gDUNjNLNUFcT3sRa18AVXMWphPBuo8QCUb9Gym5c6DDsMA3c8yE1ouoOrzKyCAAm8TOgEqjmWYNd+ZAUrmcQ36VVdeErcDB7Vh5OAxsVDfOLMcrdauAgJ+oAug9z+0yefGGjXxXSJvnxgyuiSuhDod2aoPIwOPkYVu6YEVUMTuMhdAb8Qt9s0UPo/1oP47CEMLsPlTvX0xoy2f5NJ9N+tGTsxGWh2g5zONnxe1qAZQtPKvQYWsv/OaOlRUM0XWoLrFhbazU3Fr1BwHSY+XswF6ZoDSJ1GwFaz2wiATr1jCMCniIEm7gcDKZ4zVTKoJpOIBtVaiekKR591awtArHqD6b2QB9DzGcrvbE8XoZwWAWgg1rN/xJzQvQA3fxwjoOfTm8V4ugCr5XAWg5mbetMDMm9CcADW1CGY+8WG4ANocyjCbCM0MUDKPiYUTodf+zXxGpWH8JiZAzx3CyH/bsZcCjE5cCG3rHdIwEnlcu/O5b31SA4rWsgA1NvPGfYxelWgupWH+EiY+3cJgQB0s9IRaNtp6EJpJaZi/AYjPPAAl2XbsozCDJCl9JWo5S8Od0DwGScdmCy2guH2yQ/G2Y5vUFjhCew/nZj4HQG253vV8uodR7K7OwIBqCbWe5+ZIaAaAWnO96wBFHoUxEgNqk85C18xbT8R0IzQ1oHLhp8lCw+esoDIAtIRtx3YLNaH2I1tRSersYUTxgKxsVQM6L6UcAC1h27HVAl6FzjzwhCYtjf43ymAB5TMPQAliyB5QeBU690BXoilLA7S7CswnA0rrYbJQ90NhmYHiZ/R29YDtT1UC6nBm9UShBkmK1v3up09NhiSR5kP+MMaQ+SCpFYxQpUeAjN4hBknjul5rAeczB0Cb9SST1SRfRHLOp3cXIpOX/GGOYRGAwghVe6Ca+VSAQs9IUQCqm+fIAdBam4ODw8G2kI/f/lddgz788knUpPKHOYZlAKq8DND0qQhEkwA6n2/QWaj4JAnDCdAb1TolRR90M3qVIPLu588i0Yf8UaFTIcIFTIVIIcUeMHACQNpEisSpEOGxKb6ve4rJkZwWLD//UG1ndzEVNeiYYgGoSJBUkyl/yCeWO0iSmtcVkwrF5BEvozfWA3EU76wCNS35itLEzzN5je/FD9v3NgeiugY1xLAcQOeXAwFovIzeOA9190NtMeeTLAwdoMczjZ8316DKIxvuovZByTxgFmZCzR6gnmjk0sClg5gCat67FaEGvT05nG6Lt8+DCiKf3r1uR/GvQ4/iyTyAFkZCbR6Am59RS0MfjtJiwqdtf3aUJt52cINiPWiR86C9ppdleNUAHjZCY47isTnzxoBaz2WIM82kP/qmebb09aAqja8MElAbodEANdfmKgskn+EBvalrRnMNuobldgppCQ1ExkwEgOJ/T0Z8Qs61CV+Dbsdz8K0Y0AmhWEArfNs6lT+g+J7GmE/7J+RxJ2kV60EV0hCKGJ3oCIlRGk5jtSGgsGPBcgB0FetBVRpeIgdAK20dFr403Ga78BVoHoASxLBIQEedsP3FQ86QB8qmaL6h5Xi/YAAo9FxFBpTUA22hIBTrESabosEDvGplajHk0z8MhYo9+ibJIKlVf6VcAUUsIxrJcZDkvqjKhc/kgKJVGqCDtm7n7OGUrM4JUJ9lqXtAMccmM6BCKQHtqxMPQCe1aChAkZujxhY9n+4eFjGgNrlZjAl1DeMYtJ2yFxZQ/AZoNaAoPhlQWg9Hi67N23mG0TFEXxr+2/Mln7isCAwosYezRXvZfAGtZCtMXRqOh0QNLTo+fTysCgPo4yUwj6wphjIAbS6jbxh1ZUdaGk6V59ii4xNbfVZZAArNMWeMYemADqpQgjDcmep17e80BRSPZxaAVtCjQU0xLHqQ1KitXXZUYdjBsg+SfDmfAOrCZw6AdnP1CVMhRtzVaZDY2gje4WmX2Hpjet68q9P2bpyar0W0ddMg50xzxmzHOBVbg1ZtFbMjDWO+P6yXvgZt3kVaGjun/ufYAyBHQLfmdNw4lQxocxF31GGotjEKKQHtX0sZxs6xfceG4bhp7m//0QJo8jPqyTy8Lc7t+SvdwtBQOn5++ArC0vDgkwbQq5kGTz7+239amvj0e5LIPPwtzgMB2mi+P1yzUdzggQ9j59q8o8Nw2/LxwtIHzWDLB5kHgcX5uT+heZXGzh3PCIDe/t1vDCjOw+d6EoZBZeHFZ3hA21yd0/0cme1JymWQJD28CQ25HhQbhkfzjg4j1DRT8j1JmQG687yoOQHq22HJAlCCGIoCVAwrwocRBVDvDnUWd5Iafle3L97k4TXwzQfQc/85CQaU1IMOUI+pw2xKg2JSNzmg2/2mOZ4HHXj4EZpHaZxflwAoL7dTezSERrk/GMijDv6a4KZDBoDitBZAverQDErjvLEoA9DbkxXvi9d6OC/xhYYRdJDUBH4d8K6tUqG2fIibodCGfjWA+hCaGtDzwRYrT2UAqEBz86I5SNQ9hlIBdeuHJga022AVvacRDtDtEc+DzjxcN0ImBnT/K1UKoNWmoXO8ILQ5o/7u1enpRVX9fnoqMiMaY8hgWEBkMfDYbyXHMpqyNAYn+ZQCaN0JrTbjY5ibXJ0iOdLdj++rjxf2GIoE1PG0mKSlMTwMrRRA52pzdX4RuWc+Xjz9+f3gqXUCGvK8GEqP8yGfpQB6/3K+Z2mfuauuRR/enDYtfcBcndmq3+R5Hn5PpL8GMRJuT4UrWBM/nwaVgIokXqKV72vRFQ2SKpcz3eFh0A+SpqfxFlKDtnq8bAkd5OoUKbxey6f3/dD1Akp96is1oKOhXGmA3hxMmnk5it8Pj1YKKD6vEDwMYkAVOUtKAbRu4meT9E2245ZPkY776S9Bp5nyBRSdmQ0eBi2g48iKAlSb7VjMf4rhUf3z2/1AflWjeCEXQqOXxrmKz1IAFQnj4ceHrRxQWDMfuzQmMTmng/AMI2Af9PZEMdWEiaFcQJH51YOFYdA0ogIBrbXhLR9qj9maIHslGrM05jdi3VKSeYbRKOx6UN4Xr/GYr1qzIRpxkKSIpDRA719C98QbYigZUNW6SjOi0QBVheGWddQrjE7FbvnIHFDlyl8TobEAVcXgkFjcN4y9OBWiTREBNREaCVALn0UAKrQVaCbd8kHmESoMNaHadj5GaWg+vUBA+eAGu4dud4+G0PClofvdGAXKgPYqHFA9oUpQgpeGrurelQho18QnnGYi8wgXhnaHpArRsKWh71pMgiwF0Pb4xZR3knIfJAnp9/DOeQk6SNIPzqYhFgMoQQxrBnTOTDhAjRv4GFB9DOUDaiZ0zE0wQI23B2YBlgIoH30D8rCc0zFkJwygtu3PpQIKTUAjY0ixGSsPWfahnQfeV2dzT7JNbiw+fjGChcFjZ6lE93UcfRj2wyMUsRVTgzKgQA/AaVznIcIArJJWhVYIoNApemMM6wAURGhzcixlGKBF/AUDikzHrX54BYMkIdiBhrDdn8BBEsxMGVghgOK0bkCBhF5DzhuDAAo+t4wBtcSwFkBhhAqLcxtcNkCtBtaoCgGUm3iUB4TQvnk2IGYEFHfkoyamQgBtdf/DW8XrwDGsZJBU4QCtABXpXO1bEF9FF1JRgCY9ApzMI0YYAEInFghI+5cyoBPxelCoh51QhcV5K+1bZs/Dv4o2nrIA3XANCvWwEmpcy6mWQxjWaAoBVA6SDhP2QZc0SBKyERp0PSg8lkIAxYkBrbIC1BQKA9prXYDaCGVAfTUGdAs/+YYBbWUmNB6gxjhKAZQ3zTl45EGGeQFgIYDytmMXjyzIoOhpEISxFwMawWJBnT+SsRqlR8QmvkmiIHMgPrw5/e6zJYb1AZrB/M5aAFUMkppUiDK1x9O7i+r37y0xrG2QJOQ5Q+49SPK4XwBXFoDO1KZClNm7Hn75tE88x4AO5XeP0RdQ6w6pUgBV7kkSRMociHc/f27yygZMhfgshGl4+e2j/CPlh4dR5DQ0MgeiyJPUAirENehAXsuI/GpQ5Ko/Z2VQg1ajTPGjVIji3xd9DWqIYYWDJKF0K4VXBKhyRf0A0Ah9UDKP6GGk2msB3nkSNoyJIt6LF0TKHIgi43HgUTyZR/ww0uxWA+7dCx3GVJEB7XIg8jyoSSk2pMP4LBpQbAzrHCQJOQPqPkgC8lkIoGIQv6m7oMATxBjQqVwPRXIG1D4BigmD0iMEoLcnL6pqc5Q2y8eiAVUAExRQKJ6FALo5kn9sE+5JWjagjgdzOgIK57MIQNuKUwDKq5ncPSKevY3gsyBAhRhQD49o6TXA/c+wYWgUANDHy24VU8omnswjWRiREhRh8CwD0HYxaMWpEH09ogCK47MMQKtNsyH+9oSnmfw80EkyHQZJqwS0TfIBPLaBAdULmwcbDSiq/wkOg9KD7yTZlLSn0QMUBFAsngzoUAxoNUAoBKB4PhnQgVY/SGrUQRQiDAbUKwYGtJFs5enDQPc/w4RhEQMawcLTYxckDBc81wpo6o1ZuSvEZrYcN8iplAWg6od5kLRX3RrTDpKcmvexhbuWV4OqH2ZAexED6oonAzoUAzrQjhJQdz4Z0IEY0KFAUIEAdW7eews/MaCkHrmE4cXVIAw/Gwa0Vy5k+FsQheFN6LVn9VkxoEPlQ0YOHsJi54nXNQnj3mJAST3yCsOLsGuiXkJMj2IBLW2QBBqBmwdJBL1YBnQgBlRpYcLMCChwLhUYRiwPBtSm3AA1VaJ6QJvu6xJLgwG1KT9A9YMlLaBkK6IY0F4ZkpHQY2KB6U7ueV5iaTCgESxChAGfcupft8TSYEAjWAQKA8Lo6DVLLA0GNIJFuDCMiO6mBC+xNIoFtORB0lC73YDDP0YPxwwjmAcDalPmgLZqMd39seuUJowAHpGPABeZEEWiJJkR0RgDA4q2oMkXH9giV0C/dESKRAptRkRzDAwo2oIBNQiUCrGWyI8kMyKaY1gSGeE91hpG7CwfVZN+RmZErAKmQmSVoeiANgnmZEZE+QTXoHEsFhlGDEBHqRC/7PMj7fuhDGgci0WGEb0G/fi6+3dYQHmQlC4MSo/YgLYNu8yIaI6BAUVbMKAGwQCVOY5lRkRjDAwo2oIBNYjvJAX1YEB9lRmgZB4cBrEFA0rrwWEQWzCgtB4cBrEFA0rrwWEQWzCgjXiQlC4MSg8G1CYGlNiCAW3EgKYLg9KDAbWJASW2WCCgLJZWGQCqEV1oXuIwhsokDBcxoEHFYfiKAQ0qDsNX5ICyWJRiQFlZiwFlZS0GlJW1GFBW1qIF9OHN6X77Zxq1O1TaMJJFc/eqOT8gdRhf2oOKUofhJ1JAn95dNCc8pFNzUo8MI1k0YgfX3Y/vU4fRnKr1ffLS8BQpoA+/fOpOIkmj9qQeGUayaL4IDj5epA5DqP/85FpCYTAAAANpSURBVNfGUaSA3v38udsAmkriGsgwkkbTf37SMOo6M4cwPEQKqNg4nwGgMoyU0Ty9e51BGHevvn2fQRhe4ho0hB7evK4yCCObitxDZfVBW0CT97ruXonzgZKHIZRHV9hDxKP416lHiuIayDCSRdPymTwM2ainDsNTPA9Kr+7E9NQTkPKkotRh+InvJLGyFgPKyloMKCtrMaCsrMWAsrIWA8rKWmUD+nh5IHRkedn24PCt+Pm//13dfvPW6XPO6j/vf9C99+arDw6uY786OP0HlKvSAX3R/Pn1b6ZX3b88a34KON0A3Ta/AptDWkBHfk1gN+YvUqLWAOieQI06KJ0BbWq2+5cHpIBO/JrA2pp6VVoFoE0Nd3tSN/Yvqs1R1dV4TQ/gqHlC/Fv8fHH7zZ/ql521z0msurd0D0mn2+f/Ll+xFRXbzdEe7uYFBwO+BKDdu7759UR8QPPi5ldi4PZPg+A6v+b5sya4NVah6wC0vq5NLbr96oNgRVZEj5dHzf+jGvSkRqB+mXi8Ba/Fq35L91DndHtyNP4Ufe1bO/Tvaj+gA3TkNgiu82v/ODmTtDr1QJaslQD61Yf/E6xJIG6ff5CPNn+MAT1r/tI8J7sG8i3dQ51T89Lu+e79ag0+v/uAjr7R44PgOr/un625pbNSoFYCaNMGt61u3YJ2jah4tGOlGvRB6z+2TSN9sO8hiP/2D7VOex5BgI7eNQB07NYHt/fbyA5I84/uC61H6wC07kXevzxs8bt9/j+yETUCOuzstW/pHuqc9ICq+qCjdw1+jt364AZ+9XCpq+YZ0LI0GMW3lWgNw+PlP8tWU/xr1sRLbm6GI+j2Ld1DnROwBhVc128ZvWsA6NitD27kV38CN/ElajAPKvC6PRGMbQ/2g5vxIKnpAUpu9u9p1Lyle6hz6vnZmAZJ4uV1DT56V1NzvqgdZ27bwV2FtgPQzBvIwRQPkgqTvJPU8FP35Q7/Q1zl/eBGTjP1V31zcLTvGorn9rVo+5buIenUwyInfzT01C8Xzw/f1U0v/csPbydufXCdn+w6i+D28worUtmAKtUPk6neQngL0vxJPFG/Bm3x4wzbW7a2u/1En7S+efr1AdpMlFO/hapms3wSLxZhsTITA8rKWgwoK2sxoKysxYCyshYDyspaDCgra/0/h6HVMzxUe8QAAAAASUVORK5CYII=" alt="Regime curve of groundwater level throughout the year. The blue line is at the GHG on day 46, the red line is at GLG on day 227" />
+<div class="figcaption">Regime curve of groundwater level throughout the
+year. The blue line is at the GHG on day 46, the red line is at GLG on
+day 227</div>
+</div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>Both among the grassland and the arable fields, we find a poorly performing and a reasonable performing field. If you look closely, you can see that field 1 scores much lower than field 4, despite having a higher relative growing season. This is because there is a more lenient evaluation of relative growing seasons specifically for permanent grassland.</p>
-<p>The relative season length, and in extension, the indicator score, are a function of the soil and hydrological properties of the field as well as the growing season and soil working depth requirements of the crop. By choosing a crop with a shorter growing season and or more shallow soil working depth, the score can be improved. Lets see how these parcels perform when we cultivate peas.</p>
+<p>Both among the grassland and the arable fields, we find a poorly
+performing and a reasonable performing field. If you look closely, you
+can see that field 1 scores much lower than field 4, despite having a
+higher relative growing season. This is because there is a more lenient
+evaluation of relative growing seasons specifically for permanent
+grassland.</p>
+<p>The relative season length, and in extension, the indicator score,
+are a function of the soil and hydrological properties of the field as
+well as the growing season and soil working depth requirements of the
+crop. By choosing a crop with a shorter growing season and or more
+shallow soil working depth, the score can be improved. Lets see how
+these parcels perform when we cultivate peas.</p>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-It worked! Or at least it did for the arable fields, the fields that used to have grass perform much worse now. So what happend? For the arable fields, the required number of days decreased.
+It worked! Or at least it did for the arable fields, the fields that
+used to have grass perform much worse now. So what happend? For the
+arable fields, the required number of days decreased.
 <table>
 <thead>
 <tr>
@@ -404,44 +630,58 @@ beweid bemaaid gras
 </tr>
 </tbody>
 </table>
-<p>However, the required season for grassland is also much longer than that of peas, why do the grassland fields perform worse with peas? Because unlike permanent grassland, peas require working the soil at the beginning of the growing season, increasing the required depth of water in the soil. The required water level depth is determined by the soiltype and soil particle fractions with the following code. Here ‘gws_sub_workingdepth’ is the groundwater level beneath working depth and spring depth is the working depth in spring. For perennial crops, like permanent grassland, the spring working depth is overwritten and set to 0.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## merge with OBIC crop and soil table</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load other tables</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  crops.obic <span class="ot">&lt;-</span> OBIC<span class="sc">::</span>crops.obic</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  season.obic <span class="ot">&lt;-</span> OBIC<span class="sc">::</span>season.obic</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># merge tables</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">merge</span>(dt, crops.obic[, <span class="fu">list</span>(crop_code, crop_waterstress, crop_season)], </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">by.x =</span> <span class="st">&quot;B_LU_BRP&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;crop_code&quot;</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">merge</span>(dt, soils.obic[, <span class="fu">list</span>(soiltype, soiltype.m)], <span class="at">by.x =</span> <span class="st">&quot;B_SOILTYPE_AGR&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;soiltype&quot;</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">merge</span>(dt, season.obic, <span class="at">by.x =</span> <span class="fu">c</span>(<span class="st">&#39;crop_season&#39;</span>,<span class="st">&#39;soiltype.m&#39;</span>), <span class="at">by.y =</span> <span class="fu">c</span>(<span class="st">&#39;landuse&#39;</span>, <span class="st">&#39;soiltype.m&#39;</span>))</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## determine workability key numbers</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># new parameters to be added</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;gws_sub_workingdepth&#39;</span>,<span class="st">&#39;spring_depth&#39;</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sandy soils with variable silt content</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;zand&#39;</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">45</span>,<span class="dv">35</span>)]</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;zand&#39;</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&lt;</span> <span class="dv">20</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">55</span>,<span class="dv">30</span>)]</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;zand&#39;</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">60</span>,<span class="dv">30</span>)]</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># loess and peat soils</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;loess&#39;</span>,<span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">65</span>,<span class="dv">12</span>)]</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;veen&#39;</span>,<span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">55</span>,<span class="dv">22</span>)]</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># clay soils</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">12</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">85</span>,<span class="dv">12</span>)]</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">12</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">17</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">85</span>,<span class="dv">12</span>)]</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">17</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">25</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">75</span>,<span class="dv">15</span>)]</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">35</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">65</span>,<span class="dv">15</span>)]</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">35</span>, <span class="fu">c</span>(cols) <span class="sc">:</span><span class="er">=</span> <span class="fu">list</span>(<span class="dv">45</span>,<span class="dv">15</span>)]</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Overwrite spring working depth for perennial crops</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  crops.p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;boomteelt&#39;</span>, <span class="st">&#39;overig boomteelt&#39;</span>, <span class="st">&#39;groot fruit&#39;</span>,<span class="st">&#39;grasland zonder herinzaai&#39;</span>, <span class="st">&#39;grasland met herinzaai&#39;</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  dt[crop_waterstress <span class="sc">%in%</span> crops.p,spring_depth <span class="sc">:</span><span class="er">=</span> <span class="dv">0</span>]</span></code></pre></div>
-<p>For field 4 (soiltype.m = ‘veen’), the required depth when cultivating permanent grass is 55+0=55cm, while with peas the required depth is 55+22=77. In the case of field 4, it happens to be that the required depth for the spring soil work is deeper than the lowest ground water level (GLG) when cultivating an annual crop. So, the groundwater is always to high for the field to be workable for cultivating peas.</p>
+<p>However, the required season for grassland is also much longer than
+that of peas, why do the grassland fields perform worse with peas?
+Because unlike permanent grassland, peas require working the soil at the
+beginning of the growing season, increasing the required depth of water
+in the soil. The required water level depth is determined by the
+soiltype and soil particle fractions with the following code. Here
+‘gws_sub_workingdepth’ is the groundwater level beneath working depth
+and spring depth is the working depth in spring. For perennial crops,
+like permanent grassland, the spring working depth is overwritten and
+set to 0.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## merge with OBIC crop and soil table</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="co"># load other tables</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  crops.obic <span class="ot">&lt;-</span> OBIC<span class="sc">::</span>crops.obic</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  season.obic <span class="ot">&lt;-</span> OBIC<span class="sc">::</span>season.obic</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  </span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="co"># merge tables</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">merge</span>(dt, crops.obic[, <span class="fu">list</span>(crop_code, crop_waterstress, crop_season)], </span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>              <span class="at">by.x =</span> <span class="st">&quot;B_LU_BRP&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;crop_code&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">merge</span>(dt, soils.obic[, <span class="fu">list</span>(soiltype, soiltype.m)], <span class="at">by.x =</span> <span class="st">&quot;B_SOILTYPE_AGR&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;soiltype&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">merge</span>(dt, season.obic, <span class="at">by.x =</span> <span class="fu">c</span>(<span class="st">&#39;crop_season&#39;</span>,<span class="st">&#39;soiltype.m&#39;</span>), <span class="at">by.y =</span> <span class="fu">c</span>(<span class="st">&#39;landuse&#39;</span>, <span class="st">&#39;soiltype.m&#39;</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">## determine workability key numbers</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>    <span class="co"># new parameters to be added</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;gws_sub_workingdepth&#39;</span>,<span class="st">&#39;spring_depth&#39;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>    </span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="co"># sandy soils with variable silt content</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;zand&#39;</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">45</span>,<span class="dv">35</span>)]</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;zand&#39;</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&lt;</span> <span class="dv">20</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">55</span>,<span class="dv">30</span>)]</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;zand&#39;</span> <span class="sc">&amp;</span> A_SILT_MI <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">60</span>,<span class="dv">30</span>)]</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>      </span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>    <span class="co"># loess and peat soils</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;loess&#39;</span>,<span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">65</span>,<span class="dv">12</span>)]</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;veen&#39;</span>,<span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">55</span>,<span class="dv">22</span>)]</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>    </span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    <span class="co"># clay soils</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">12</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">85</span>,<span class="dv">12</span>)]</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">12</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">17</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">85</span>,<span class="dv">12</span>)]</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">17</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">25</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">75</span>,<span class="dv">15</span>)]</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&lt;</span> <span class="dv">35</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">65</span>,<span class="dv">15</span>)]</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    dt[soiltype.m <span class="sc">==</span> <span class="st">&#39;klei&#39;</span> <span class="sc">&amp;</span> A_CLAY_MI <span class="sc">&gt;=</span> <span class="dv">35</span>, <span class="fu">c</span>(cols) <span class="sc">:=</span> <span class="fu">list</span>(<span class="dv">45</span>,<span class="dv">15</span>)]</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>    </span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    <span class="co"># Overwrite spring working depth for perennial crops</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  crops.p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;boomteelt&#39;</span>, <span class="st">&#39;overig boomteelt&#39;</span>, <span class="st">&#39;groot fruit&#39;</span>,<span class="st">&#39;grasland zonder herinzaai&#39;</span>, <span class="st">&#39;grasland met herinzaai&#39;</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  dt[crop_waterstress <span class="sc">%in%</span> crops.p,spring_depth <span class="sc">:=</span> <span class="dv">0</span>]</span></code></pre></div>
+<p>For field 4 (soiltype.m = ‘veen’), the required depth when
+cultivating permanent grass is 55+0=55cm, while with peas the required
+depth is 55+22=77. In the case of field 4, it happens to be that the
+required depth for the spring soil work is deeper than the lowest ground
+water level (GLG) when cultivating an annual crop. So, the groundwater
+is always to high for the field to be workable for cultivating peas.</p>
 <table>
 <caption>
 Ground water parameters for workability when cultivating peas
@@ -551,22 +791,44 @@ required_depth
 </tr>
 </tbody>
 </table>
-<p>As we have seen, crop growing season requirements are not the only variable affecting the relative growing season length and workability score. Ground water levels are really what determines when the land can be worked. Lets see what would happen to our fields if they become drier by increasing both their lowest and highest water level by 30 percent.</p>
+<p>As we have seen, crop growing season requirements are not the only
+variable affecting the relative growing season length and workability
+score. Ground water levels are really what determines when the land can
+be worked. Lets see what would happen to our fields if they become drier
+by increasing both their lowest and highest water level by 30
+percent.</p>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>As you may have suspected, lower water levels resulted in higher relative growing seasons and workability scores. Note that for the function ‘workability’ lower ground water is always positive until the relative growing season length equals 1. However, low groundwater levels can be negative for other soil functions.</p>
+<p>As you may have suspected, lower water levels resulted in higher
+relative growing seasons and workability scores. Note that for the
+function ‘workability’ lower ground water is always positive until the
+relative growing season length equals 1. However, low groundwater levels
+can be negative for other soil functions.</p>
 </div>
 <div id="b_gwl_zcrit" class="section level2">
 <h2>B_GWL_ZCRIT</h2>
-<p>Sometimes, capillary rise of water from the groundwater table to the soil surface may fall behind evaporation. If this is the case, the soil will dry out relatively quickly and may be workable sooner. It is estimated that evaporation in the Netherlands in spring is about 2mm per day. In our example data, B_GWL_ZCRIT was set to 400 meaning that over a distance of 400 cm between the groundwater table and the soil surface, the soil is able to supply at least 2 mm of water per day. Lets set B_GWL_ZCRIT to 50 and see what happens to our scores.</p>
+<p>Sometimes, capillary rise of water from the groundwater table to the
+soil surface may fall behind evaporation. If this is the case, the soil
+will dry out relatively quickly and may be workable sooner. It is
+estimated that evaporation in the Netherlands in spring is about 2mm per
+day. In our example data, B_GWL_ZCRIT was set to 400 meaning that over a
+distance of 400 cm between the groundwater table and the soil surface,
+the soil is able to supply at least 2 mm of water per day. Lets set
+B_GWL_ZCRIT to 50 and see what happens to our scores.</p>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>The scores improved for all fields! Decreasing B_GWL_ZCRIT to 50 means that the soils dry up much faster because evaporation on the soil surface is higher than capillary rise once the groundwater table falls below 50cm.</p>
+<p>The scores improved for all fields! Decreasing B_GWL_ZCRIT to 50
+means that the soils dry up much faster because evaporation on the soil
+surface is higher than capillary rise once the groundwater table falls
+below 50cm.</p>
 <p>The methodology for assessing workability is an adaptation from <span class="citation">Huinink (2018)</span></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Huinink2018" class="csl-entry">
-Huinink, J.Th.M. 2018. <span>“<span class="nocase">Bodem/perceel geschiktheidsbeoordeling voor Landbouw, Bosbouw en Recreatie: t.b.v. een optimalisatie van grondwater- en oppervlaktewaterpeilbeheer: state of the art 2018</span>.”</span> BodemConsult-Arnhem. <a href="https://www.bodemconsult.nl">www.bodemconsult.nl</a>.
+Huinink, J.Th.M. 2018. <span>“<span class="nocase">Bodem/perceel
+geschiktheidsbeoordeling voor Landbouw, Bosbouw en Recreatie: t.b.v. een
+optimalisatie van grondwater- en oppervlaktewaterpeilbeheer: state of
+the art 2018</span>.”</span> BodemConsult-Arnhem. <a href="https://www.bodemconsult.nl">www.bodemconsult.nl</a>.
 </div>
 </div>
 </div>

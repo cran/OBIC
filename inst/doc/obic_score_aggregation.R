@@ -15,6 +15,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
 
   # load packages
   library(OBIC); library(data.table); library(ggplot2); library(patchwork)
+  setDTthreads(1)
 
   # load data
   dt <- OBIC::binnenveld[ID==1]
@@ -591,7 +592,7 @@ gg3 <- ggplot(dt2[cat %in% c('S_T_cf_log',
   facet_wrap(~treatment, ncol = 1) #+ geom_boxplot(data = dt[cat == 'S_Tnocat_OBI_A'], mapping = aes(fill = 'blue')) 
 gg3 
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #    obic_field(B_SOILTYPE_AGR =  dt$B_SOILTYPE_AGR, B_GWL_CLASS =  dt$B_GWL_CLASS,
 #               B_SC_WENR = dt$B_SC_WENR, B_HELP_WENR = dt$B_HELP_WENR, B_AER_CBS = dt$B_AER_CBS,
 #               B_LU_BRP = dt$B_LU_BRP, A_SOM_LOI = dt$A_SOM_LOI, A_SAND_MI = dt$A_SAND_MI,
