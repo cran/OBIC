@@ -1,7 +1,7 @@
 Package: OBIC
 Type: Package
 Title: Calculate the Open Bodem Index (OBI) Score
-Version: 3.0.0
+Version: 3.0.1
 Authors@R: c(
     person(given = "Sven", 
            family = "Verweij",
@@ -27,7 +27,7 @@ Authors@R: c(
            family = "van den Dool",
            email = 'kees.vandendool@nmi-agro.nl',
            role = "aut",
-           comment = c(ORCHID = '0009-0003-8963-2556')),
+           comment = c(ORCID = '0009-0003-8963-2556')),
     person(given = "Job", 
            family = "de Pater",
            email = "job.depater@nmi-agro.nl",
@@ -51,15 +51,15 @@ Suggests: testthat (>= 2.1.0), knitr, rmarkdown, ggplot2, patchwork,
         covr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2023-10-19 13:46:32 UTC; sven.verweij
+Packaged: 2023-12-12 12:50:03 UTC; sven.verweij
 Author: Sven Verweij [aut, cre] (<https://orcid.org/0000-0002-5573-3952>),
   Gerard Ros [aut] (<https://orcid.org/0000-0002-6062-9770>),
   Yuki Fujita [aut] (<https://orcid.org/0000-0002-0541-2798>),
   Wilbrand Hendrik Riechelman [aut]
     (<https://orcid.org/0000-0003-1501-1573>),
-  Kees van den Dool [aut] (0009-0003-8963-2556),
+  Kees van den Dool [aut] (<https://orcid.org/0009-0003-8963-2556>),
   Job de Pater [ctb],
   Nutriënten Managment Instituut [cph]
 Maintainer: Sven Verweij <sven.verweij@nmi-agro.nl>
 Repository: CRAN
-Date/Publication: 2023-10-19 14:00:07 UTC
+Date/Publication: 2023-12-12 13:10:06 UTC
