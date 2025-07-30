@@ -442,9 +442,9 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # estimate distance to required pH
-#    dt[, D_PH_DELTA := calc_ph_delta(B_LU_BRP, B_SOILTYPE_AGR, A_SOM_LOI, A_CLAY_MI, A_PH_CC, D_CP_STARCH,
-#                                     D_CP_POTATO, D_CP_SUGARBEET, D_CP_GRASS, D_CP_MAIS, D_CP_OTHER)]
+#   # estimate distance to required pH
+#   dt[, D_PH_DELTA := calc_ph_delta(B_LU_BRP, B_SOILTYPE_AGR, A_SOM_LOI, A_CLAY_MI, A_PH_CC, D_CP_STARCH,
+#                                    D_CP_POTATO, D_CP_SUGARBEET, D_CP_GRASS, D_CP_MAIS, D_CP_OTHER)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
   # define a field with two landuses: grassland and maize
@@ -500,33 +500,33 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # estimate importance of CEC supporting crop development
-#    dt[, D_CEC := calc_cec(A_CEC_CO)]
+#   # estimate importance of CEC supporting crop development
+#   dt[, D_CEC := calc_cec(A_CEC_CO)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE, eval = FALSE----
-#    # Make a data table with CEC levels between 1 and 100 mmol+/kg
-#    dt <- data.table(A_CEC_CO = seq(1,100,1))
-#  
-#    # Add D_CEC
-#    dt[,D_CEC := calc_cec(A_CEC_CO)]
-#  
-#    # plot output
-#    p1 <- ggplot(data = dt,aes(y = D_CEC, x = A_CEC_CO)) +
-#          geom_point(show.legend = FALSE) + geom_line()+ theme_bw() + scale_fill_viridis_d()+ scale_color_viridis_d()+
-#          ylab('CEC evaluation') + xlab('Cation exchange capacity') +
-#          theme(plot.title = element_text(size=10),
-#                axis.text = element_text(size=10)) +
-#          ggtitle('')
-#  
-#     p1
+#   # Make a data table with CEC levels between 1 and 100 mmol+/kg
+#   dt <- data.table(A_CEC_CO = seq(1,100,1))
+# 
+#   # Add D_CEC
+#   dt[,D_CEC := calc_cec(A_CEC_CO)]
+# 
+#   # plot output
+#   p1 <- ggplot(data = dt,aes(y = D_CEC, x = A_CEC_CO)) +
+#         geom_point(show.legend = FALSE) + geom_line()+ theme_bw() + scale_fill_viridis_d()+ scale_color_viridis_d()+
+#         ylab('CEC evaluation') + xlab('Cation exchange capacity') +
+#         theme(plot.title = element_text(size=10),
+#               axis.text = element_text(size=10)) +
+#         ggtitle('')
+# 
+#    p1
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # reformat GWL_CLASS
-#    dt[, B_GWL_CLASS := format_gwt(B_GWL_CLASS)]
-#  
-#    # estimate risk on yield reduction to drought stress or wetness stress
-#    dt[, D_WSI_DS := calc_waterstressindex(B_HELP_WENR, B_LU_BRP, B_GWL_CLASS, WSI = 'droughtstress')]
-#    dt[, D_WSI_WS := calc_waterstressindex(B_HELP_WENR, B_LU_BRP, B_GWL_CLASS, WSI = 'wetnessstress')]
+#   # reformat GWL_CLASS
+#   dt[B_GWL_CLASS == '-', B_GWL_CLASS := 'I']
+# 
+#   # estimate risk on yield reduction to drought stress or wetness stress
+#   dt[, D_WSI_DS := calc_waterstressindex(B_HELP_WENR, B_LU_BRP, B_GWL_CLASS, WSI = 'droughtstress')]
+#   dt[, D_WSI_WS := calc_waterstressindex(B_HELP_WENR, B_LU_BRP, B_GWL_CLASS, WSI = 'wetnessstress')]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
   # subset a series of agricultural fields
@@ -536,7 +536,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   dt.test[,pID := .GRP, by = ID]
   
   # reformat GWL_CLASS
-  dt.test[, B_GWL_CLASS := format_gwt(B_GWL_CLASS)]
+  dt.test[B_GWL_CLASS == '-', B_GWL_CLASS := 'II']
   
   # estimate delta-pH
   dt.test[, D_WSI_DS := calc_waterstressindex(B_HELP_WENR, B_LU_BRP, B_GWL_CLASS, WSI = 'droughtstress'),by=ID]
@@ -559,10 +559,10 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
         ggtitle('Soil water stress index')
      
   
-  # estimate moisture stress with variable Gt for an arable field
+  # estimate moisture stress with variable  for an arable field
   dt.test2 <- dt.test[ID==11][1]
   dt.test2 <- dt.test2[rep(1,4)]
-  dt.test2[,B_GWL_CLASS := c('GtIII','GtIV','GtV','GtVI')]
+  dt.test2[,B_GWL_CLASS := c('III','IV','V','VI')]
   
   # update WSI
   dt.test2[, D_WSI_DS := calc_waterstressindex(B_HELP_WENR, B_LU_BRP, B_GWL_CLASS, WSI = 'droughtstress')]
@@ -590,9 +590,9 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # estimate the presence / risk for surface sealing and wind erodibility
-#    dt[, D_SE := calc_sealing_risk(A_SOM_LOI, A_CLAY_MI)]
-#    dt[, D_WE := calc_winderodibility(B_LU_BRP, A_CLAY_MI, A_SILT_MI)]
+#   # estimate the presence / risk for surface sealing and wind erodibility
+#   dt[, D_SE := calc_sealing_risk(A_SOM_LOI, A_CLAY_MI)]
+#   dt[, D_WE := calc_winderodibility(B_LU_BRP, A_CLAY_MI, A_SILT_MI)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
   # make a data.table for sandy and clay soil with potatoes
@@ -644,9 +644,9 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # assess the crumbleability and aggregate stability
-#    dt[, D_CR := calc_crumbleability(A_SOM_LOI, A_CLAY_MI,A_PH_CC)]
-#    dt[, D_AS := calc_aggregatestability(B_SOILTYPE_AGR,A_SOM_LOI,A_K_CO_PO,A_CA_CO_PO,A_MG_CO_PO)]
+#   # assess the crumbleability and aggregate stability
+#   dt[, D_CR := calc_crumbleability(A_SOM_LOI, A_CLAY_MI,A_PH_CC)]
+#   dt[, D_AS := calc_aggregatestability(B_SOILTYPE_AGR,A_SOM_LOI,A_K_CO_PO,A_CA_CO_PO,A_MG_CO_PO)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
   # make a data.table for crumbleability
@@ -702,15 +702,15 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p4
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#      # overwrite soil physical functions for compaction when BCS is available
-#      dt[,D_P_CO := (3 * A_EW_BCS + 3 * A_SC_BCS + 3 * A_RD_BCS  - 2 * A_P_BCS - A_RT_BCS)/18]
-#      dt[,D_P_CO := pmax(0, D_P_CO)]
-#      dt[,I_P_CO := fifelse(is.na(D_P_CO),I_P_CO,D_P_CO)]
-#  
-#      # overwrite soil physical functions for aggregate stability when BCS is available
-#      dt[,D_P_CEC := (3 * A_EW_BCS + 3 * A_SS_BCS - A_C_BCS)/12]
-#      dt[,D_P_CEC := pmax(0, D_P_CEC)]
-#      dt[,I_P_CEC := fifelse(is.na(D_P_CEC),I_P_CEC,D_P_CEC)]
+#     # overwrite soil physical functions for compaction when BCS is available
+#     dt[,D_P_CO := (3 * A_EW_BCS + 3 * A_SC_BCS + 3 * A_RD_BCS  - 2 * A_P_BCS - A_RT_BCS)/18]
+#     dt[,D_P_CO := pmax(0, D_P_CO)]
+#     dt[,I_P_CO := fifelse(is.na(D_P_CO),I_P_CO,D_P_CO)]
+# 
+#     # overwrite soil physical functions for aggregate stability when BCS is available
+#     dt[,D_P_CEC := (3 * A_EW_BCS + 3 * A_SS_BCS - A_C_BCS)/12]
+#     dt[,D_P_CEC := pmax(0, D_P_CEC)]
+#     dt[,I_P_CEC := fifelse(is.na(D_P_CEC),I_P_CEC,D_P_CEC)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
     # make a data table with some BCS values
@@ -781,20 +781,20 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     p1+p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # estimate the plant available water in topsoil
-#    dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'plant available water')]
-#  
-#    # estimate the water holding capacity in topsoil
-#    dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'water holding capacity')]
-#  
-#    # estimate the moisture content of the wilting point in topsoil
-#    dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'wilting point')]
-#  
-#    # estimate the moisture content of the field capacity in topsoil
-#    dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'field capacity')]
-#  
-#    # estimate the saturated permeability in topsoil
-#    dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'Ksat')]
+#   # estimate the plant available water in topsoil
+#   dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'plant available water')]
+# 
+#   # estimate the water holding capacity in topsoil
+#   dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'water holding capacity')]
+# 
+#   # estimate the moisture content of the wilting point in topsoil
+#   dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'wilting point')]
+# 
+#   # estimate the moisture content of the field capacity in topsoil
+#   dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'field capacity')]
+# 
+#   # estimate the saturated permeability in topsoil
+#   dt[, D_WRI := calc_waterretention(A_CLAY_MI,A_SAND_MI,A_SILT_MI,A_SOM_LOI,type = 'Ksat')]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
     # Create data
@@ -853,8 +853,8 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     (pclay + pcsand) / (pcsilt + pcsom)
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # calculate the index for the potential mineralizable nitrogen pool
-#    dt[, D_PMN := calc_pmn(B_LU_BRP, B_SOILTYPE_AGR, A_N_PMN)]
+#   # calculate the index for the potential mineralizable nitrogen pool
+#   dt[, D_PMN := calc_pmn(B_LU_BRP, B_SOILTYPE_AGR, A_N_PMN)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE ,warning=FALSE----
   # define test data table with increasing PMN and different land uses
@@ -910,8 +910,8 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # Calculate disease resistance
-#    dt[, I_B_DI := ind_resistance(A_SOM_LOI)]
+#   # Calculate disease resistance
+#   dt[, I_B_DI := ind_resistance(A_SOM_LOI)]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
     # Make data table
@@ -938,18 +938,18 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     p1
 
 ## ----hidden text nematodes, eval = FALSE, include = FALSE, echo=FALSE---------
-#  # hide text in unevaluated code block till text is finished
-#  ### Nematodes (WIP)
-#  Nematodes are small animals occurring in all ecotypes on Earth, so also in soil. There is a large variety of nematodes in soils, they vary amongst other things, in size, feeding habits, reproduction speed, and life cycle. Plant parasitic nematodes (PPN) can reproduce in a range of host plants. Some nematodes have a specific host preference while other can reproduce in a large variety of plants. PPN can severely depress crop yields in vulnerable crops. Therefore, farmers can have their fields sampled to analyse which and how many nematodes occur.
-#  
-#  A nematode parameter that is not entered is assumed to be 0. The severity of an infection depends on the number of individuals and differs per parameter. For example: five Pratylenchus fallax (A_RLN_PR_FAL) will barely reduce the indicator score while five Ditylenchus destructor (A_SN_DI_DES) will severly reduce the score. It is assumed that the most severe infection is most limiting for crop production, therefore, the lowest score for a nematode parameter will determine the indicator score.
+# # hide text in unevaluated code block till text is finished
+# ### Nematodes (WIP)
+# Nematodes are small animals occurring in all ecotypes on Earth, so also in soil. There is a large variety of nematodes in soils, they vary amongst other things, in size, feeding habits, reproduction speed, and life cycle. Plant parasitic nematodes (PPN) can reproduce in a range of host plants. Some nematodes have a specific host preference while other can reproduce in a large variety of plants. PPN can severely depress crop yields in vulnerable crops. Therefore, farmers can have their fields sampled to analyse which and how many nematodes occur.
+# 
+# A nematode parameter that is not entered is assumed to be 0. The severity of an infection depends on the number of individuals and differs per parameter. For example: five Pratylenchus fallax (A_RLN_PR_FAL) will barely reduce the indicator score while five Ditylenchus destructor (A_SN_DI_DES) will severly reduce the score. It is assumed that the most severe infection is most limiting for crop production, therefore, the lowest score for a nematode parameter will determine the indicator score.
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
    dt <- data.table(nempar = c('A_RLN_PR_FAL', 'A_SN_DI_DES'), nr = 5, nem_ind = c(ind_nematodes(265, A_RLN_PR_FAL=5),ind_nematodes(265, A_SN_DI_DES=5)))
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # calculate potential for N leaching to groundwater
-#    dt[,D_NGW := calc_nleach(B_SOILTYPE_AGR, B_LU_BRP, B_GWL_CLASS, D_NLV, B_AER_CBS, leaching_to = "gw")]
+#   # calculate potential for N leaching to groundwater
+#   dt[,D_NGW := calc_nleach(B_SOILTYPE_AGR, B_LU_BRP, B_GWL_CLASS, D_NLV, B_AER_CBS, leaching_to = "gw")]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
   # subset a series of agricultural fields
@@ -987,7 +987,7 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   
   # Make example with different gwt's
   dt.test2 <- binnenveld[c(1,1,1,1,1)]
-  dt.test2 <- dt.test2[,B_GWL_CLASS := c('GtIII','GtIV', 'GtV', 'GtVI', 'GtVII')]
+  dt.test2 <- dt.test2[,B_GWL_CLASS := c('III','IV', 'V', 'VI', 'VII')]
 
   # estimate default properties needed to estimate NLV
   dt.test2[, D_BDS := calc_bulk_density(B_SOILTYPE_AGR, A_SOM_LOI, A_CLAY_MI)]
@@ -1052,36 +1052,36 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   p1 + p2
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#      # Calculate organic matter balance
-#      dt[, D_SOM_BAL := calc_sombalance(B_LU_BRP,A_SOM_LOI, A_P_AL, A_P_WA, M_COMPOST, M_GREEN)]
-#  
-#      # add management when input is missing
-#      cols <- c('M_GREEN', 'M_NONBARE', 'M_EARLYCROP','M_COMPOST','M_SLEEPHOSE','M_DRAIN','M_DITCH','M_UNDERSEED',
-#                'M_LIME', 'M_NONINVTILL', 'M_SSPM', 'M_SOLIDMANURE','M_STRAWRESIDUE','M_MECHWEEDS','M_PESTICIDES_DST')
-#      dt[, c(cols) := add_management(ID,B_LU_BRP, B_SOILTYPE_AGR,
-#                                     M_GREEN, M_NONBARE, M_EARLYCROP,M_COMPOST,M_SLEEPHOSE,M_DRAIN,M_DITCH,M_UNDERSEED,
-#                                     M_LIME, M_NONINVTILL, M_SSPM, M_SOLIDMANURE,M_STRAWRESIDUE,M_MECHWEEDS,M_PESTICIDES_DST)]
-#  
-#      # calculate grass age
-#       dt[, D_GA := calc_grass_age(ID, B_LU_BRP)]
-#  
-#       # Calculate the crop rotation fraction
-#      dt[, D_CP_STARCH := calc_rotation_fraction(ID, B_LU_BRP, crop = "starch")]
-#      dt[, D_CP_POTATO := calc_rotation_fraction(ID, B_LU_BRP, crop = "potato")]
-#      dt[, D_CP_SUGARBEET := calc_rotation_fraction(ID, B_LU_BRP, crop = "sugarbeet")]
-#      dt[, D_CP_GRASS := calc_rotation_fraction(ID, B_LU_BRP, crop = "grass")]
-#      dt[, D_CP_MAIS := calc_rotation_fraction(ID, B_LU_BRP, crop = "mais")]
-#      dt[, D_CP_OTHER := calc_rotation_fraction(ID, B_LU_BRP, crop = "other")]
-#      dt[, D_CP_RUST := calc_rotation_fraction(ID, B_LU_BRP, crop = "rustgewas")]
-#      dt[, D_CP_RUSTDEEP := calc_rotation_fraction(ID, B_LU_BRP, crop = "rustgewasdiep")]
-#  
-#      # Calculate series of management actions
-#      dt[, D_MAN := calc_management(A_SOM_LOI,B_LU_BRP, B_SOILTYPE_AGR,B_GWL_CLASS,
-#                                    D_SOM_BAL,D_CP_GRASS,D_CP_POTATO,D_CP_RUST,D_CP_RUSTDEEP,D_GA,
-#                                    M_COMPOST,M_GREEN, M_NONBARE, M_EARLYCROP, M_SLEEPHOSE, M_DRAIN,
-#                                    M_DITCH, M_UNDERSEED, M_LIME, M_NONINVTILL, M_SSPM,
-#                                    M_SOLIDMANURE,M_STRAWRESIDUE,M_MECHWEEDS,M_PESTICIDES_DST
-#                                    )]
+#     # Calculate organic matter balance
+#     dt[, D_SOM_BAL := calc_sombalance(B_LU_BRP,A_SOM_LOI, A_P_AL, A_P_WA, M_COMPOST, M_GREEN)]
+# 
+#     # add management when input is missing
+#     cols <- c('M_GREEN', 'M_NONBARE', 'M_EARLYCROP','M_COMPOST','M_SLEEPHOSE','M_DRAIN','M_DITCH','M_UNDERSEED',
+#               'M_LIME', 'M_NONINVTILL', 'M_SSPM', 'M_SOLIDMANURE','M_STRAWRESIDUE','M_MECHWEEDS','M_PESTICIDES_DST')
+#     dt[, c(cols) := add_management(ID,B_LU_BRP, B_SOILTYPE_AGR,
+#                                    M_GREEN, M_NONBARE, M_EARLYCROP,M_COMPOST,M_SLEEPHOSE,M_DRAIN,M_DITCH,M_UNDERSEED,
+#                                    M_LIME, M_NONINVTILL, M_SSPM, M_SOLIDMANURE,M_STRAWRESIDUE,M_MECHWEEDS,M_PESTICIDES_DST)]
+# 
+#     # calculate grass age
+#      dt[, D_GA := calc_grass_age(ID, B_LU_BRP)]
+# 
+#      # Calculate the crop rotation fraction
+#     dt[, D_CP_STARCH := calc_rotation_fraction(ID, B_LU_BRP, crop = "starch")]
+#     dt[, D_CP_POTATO := calc_rotation_fraction(ID, B_LU_BRP, crop = "potato")]
+#     dt[, D_CP_SUGARBEET := calc_rotation_fraction(ID, B_LU_BRP, crop = "sugarbeet")]
+#     dt[, D_CP_GRASS := calc_rotation_fraction(ID, B_LU_BRP, crop = "grass")]
+#     dt[, D_CP_MAIS := calc_rotation_fraction(ID, B_LU_BRP, crop = "mais")]
+#     dt[, D_CP_OTHER := calc_rotation_fraction(ID, B_LU_BRP, crop = "other")]
+#     dt[, D_CP_RUST := calc_rotation_fraction(ID, B_LU_BRP, crop = "rustgewas")]
+#     dt[, D_CP_RUSTDEEP := calc_rotation_fraction(ID, B_LU_BRP, crop = "rustgewasdiep")]
+# 
+#     # Calculate series of management actions
+#     dt[, D_MAN := calc_management(A_SOM_LOI,B_LU_BRP, B_SOILTYPE_AGR,B_GWL_CLASS,
+#                                   D_SOM_BAL,D_CP_GRASS,D_CP_POTATO,D_CP_RUST,D_CP_RUSTDEEP,D_GA,
+#                                   M_COMPOST,M_GREEN, M_NONBARE, M_EARLYCROP, M_SLEEPHOSE, M_DRAIN,
+#                                   M_DITCH, M_UNDERSEED, M_LIME, M_NONINVTILL, M_SSPM,
+#                                   M_SOLIDMANURE,M_STRAWRESIDUE,M_MECHWEEDS,M_PESTICIDES_DST
+#                                   )]
 
 ## ----fig.width = 7, fig.height = 4,fig.fullwidth = TRUE,echo=FALSE------------
     # subset binnenveld for first 5 fields
@@ -1153,45 +1153,45 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
     p2 + p3
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#      # evaluate measures
-#      dt.measure <- OBIC::obic_evalmeasure(dt.score, extensive = FALSE)
-#  
-#      # make recommendations of top 3 measures
-#      out.recom <- OBIC::obic_recommendations(dt.measure)
+#     # evaluate measures
+#     dt.measure <- OBIC::obic_evalmeasure(dt.score, extensive = FALSE)
+# 
+#     # make recommendations of top 3 measures
+#     out.recom <- OBIC::obic_recommendations(dt.measure)
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # Be aware these functions below are not given here to be evaluated.
-#    # They illustrate how the different indices can be evaluated (do not execute them here)
-#  
-#    # Calculate indicators for soil chemical functions
-#    dt[, I_C_N := ind_nitrogen(D_NLV, B_LU_BRP)]
-#    dt[, I_C_P := ind_phosphate_availability(D_PBI)]
-#    dt[, I_C_K := ind_potassium(D_K,B_LU_BRP,B_SOILTYPE_AGR,A_SOM_LOI)]
-#    dt[, I_C_MG := ind_magnesium(D_MG, B_LU_BRP, B_SOILTYPE_AGR)]
-#    dt[, I_C_S := ind_sulfur(D_SLV, B_LU_BRP, B_SOILTYPE_AGR, B_AER_CBS)]
-#    dt[, I_C_PH := ind_ph(D_PH_DELTA)]
-#    dt[, I_C_CEC := ind_cec(D_CEC)]
-#    dt[, I_C_CU := ind_copper(D_CU,B_LU_BRP)]
-#    dt[, I_C_ZN := ind_zinc(D_ZN)]
-#  
-#    # Calculate indicators for soil physical functions
-#    dt[, I_P_CR := ind_crumbleability(D_CR, B_LU_BRP)]
-#    dt[, I_P_SE := ind_sealing(D_SE, B_LU_BRP)]
-#    dt[, I_P_DS := ind_waterstressindex(D_WSI_DS)]
-#    dt[, I_P_WS := ind_waterstressindex(D_WSI_WS)]
-#    dt[, I_P_DU := ind_winderodibility(D_WE)]
-#    dt[, I_P_CO := ind_compaction(B_SC_WENR)]
-#    dt[, I_P_WRI := ind_waterretention(D_WRI)]
-#    dt[, I_P_CEC := ind_aggregatestability(D_AS)]
-#    dt[, I_P_WO := ind_workability(D_WO)]
-#  
-#    # Calculate indicators for soil biological functions
-#    dt[, I_B_DI := ind_resistance(A_SOM_LOI)]
-#    dt[, I_B_SF := ind_pmn(D_PMN)]
-#  
-#    # Calculate indicators for environment
-#    dt[, I_E_NGW := ind_nretention(D_NGW, leaching_to = "gw")]
-#    dt[, I_E_NSW := ind_nretention(D_NSW, leaching_to = "ow")]
+#   # Be aware these functions below are not given here to be evaluated.
+#   # They illustrate how the different indices can be evaluated (do not execute them here)
+# 
+#   # Calculate indicators for soil chemical functions
+#   dt[, I_C_N := ind_nitrogen(D_NLV, B_LU_BRP)]
+#   dt[, I_C_P := ind_phosphate_availability(D_PBI)]
+#   dt[, I_C_K := ind_potassium(D_K,B_LU_BRP,B_SOILTYPE_AGR,A_SOM_LOI)]
+#   dt[, I_C_MG := ind_magnesium(D_MG, B_LU_BRP, B_SOILTYPE_AGR)]
+#   dt[, I_C_S := ind_sulfur(D_SLV, B_LU_BRP, B_SOILTYPE_AGR, B_AER_CBS)]
+#   dt[, I_C_PH := ind_ph(D_PH_DELTA)]
+#   dt[, I_C_CEC := ind_cec(D_CEC)]
+#   dt[, I_C_CU := ind_copper(D_CU,B_LU_BRP)]
+#   dt[, I_C_ZN := ind_zinc(D_ZN)]
+# 
+#   # Calculate indicators for soil physical functions
+#   dt[, I_P_CR := ind_crumbleability(D_CR, B_LU_BRP)]
+#   dt[, I_P_SE := ind_sealing(D_SE, B_LU_BRP)]
+#   dt[, I_P_DS := ind_waterstressindex(D_WSI_DS)]
+#   dt[, I_P_WS := ind_waterstressindex(D_WSI_WS)]
+#   dt[, I_P_DU := ind_winderodibility(D_WE)]
+#   dt[, I_P_CO := ind_compaction(B_SC_WENR)]
+#   dt[, I_P_WRI := ind_waterretention(D_WRI)]
+#   dt[, I_P_CEC := ind_aggregatestability(D_AS)]
+#   dt[, I_P_WO := ind_workability(D_WO)]
+# 
+#   # Calculate indicators for soil biological functions
+#   dt[, I_B_DI := ind_resistance(A_SOM_LOI)]
+#   dt[, I_B_SF := ind_pmn(D_PMN)]
+# 
+#   # Calculate indicators for environment
+#   dt[, I_E_NGW := ind_nretention(D_NGW, leaching_to = "gw")]
+#   dt[, I_E_NSW := ind_nretention(D_NSW, leaching_to = "ow")]
 
 ## ----plot relation function and index values,fig.width = 7, fig.height = 16,fig.fullwidth = TRUE,echo=FALSE----
   # create waterstress index relation figure
@@ -1320,78 +1320,78 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
 p.ar+p.gr
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#      # load weights.obic (set indicator to zero when not applicable)
-#      w <- as.data.table(OBIC::weight.obic)
-#  
-#      # Add years per field
-#      dt[,year := .I, by = ID]
-#  
-#      # Select all indicators used for scoring
-#      cols <- colnames(dt)[grepl('I_C|I_B|I_P|I_E|I_M|year|crop_cat|SOILT',colnames(dt))]
-#  
-#      # Melt dt and assign main categories for OBI
-#      dt.melt <- melt(dt[,mget(cols)],
-#                      id.vars = c('B_SOILTYPE_AGR','crop_category','year'),
-#                      variable.name = 'indicator')
-#  
-#      # add categories relevant for aggregating
-#      # C = chemical, P = physics, B = biological, BCS = visual soil assessment
-#      # indicators not used for integrating: IBCS and IM
-#      dt.melt[,cat := tstrsplit(indicator,'_',keep = 2)]
-#      dt.melt[grepl('_BCS$',indicator) & indicator != 'I_BCS', cat := 'IBCS']
-#      dt.melt[grepl('^I_M_',indicator), cat := 'IM']
-#  
-#      # Determine number of indicators per category
-#      dt.melt.ncat <- dt.melt[year==1 & !cat %in% c('IBCS','IM')][,list(ncat = .N),by='cat']
-#  
-#      # add weighing factor to indicator values
-#      dt.melt <- merge(dt.melt,w[,list(crop_category,indicator,weight_nonpeat,weight_peat)],
-#                       by = c('crop_category','indicator'), all.x = TRUE)
-#  
-#      # calculate correction factor for indicator values (low values have more impact than high values, a factor 5)
-#      dt.melt[,cf := cf_ind_importance(value)]
-#  
-#      # calculate weighted value for crop category
-#      dt.melt[,value.w := value]
-#      dt.melt[grepl('veen',B_SOILTYPE_AGR) & weight_peat < 0,value.w := -999]
-#      dt.melt[!grepl('veen',B_SOILTYPE_AGR) & weight_nonpeat < 0,value.w := -999]
+#     # load weights.obic (set indicator to zero when not applicable)
+#     w <- as.data.table(OBIC::weight.obic)
+# 
+#     # Add years per field
+#     dt[,year := .I, by = ID]
+# 
+#     # Select all indicators used for scoring
+#     cols <- colnames(dt)[grepl('I_C|I_B|I_P|I_E|I_M|year|crop_cat|SOILT',colnames(dt))]
+# 
+#     # Melt dt and assign main categories for OBI
+#     dt.melt <- melt(dt[,mget(cols)],
+#                     id.vars = c('B_SOILTYPE_AGR','crop_category','year'),
+#                     variable.name = 'indicator')
+# 
+#     # add categories relevant for aggregating
+#     # C = chemical, P = physics, B = biological, BCS = visual soil assessment
+#     # indicators not used for integrating: IBCS and IM
+#     dt.melt[,cat := tstrsplit(indicator,'_',keep = 2)]
+#     dt.melt[grepl('_BCS$',indicator) & indicator != 'I_BCS', cat := 'IBCS']
+#     dt.melt[grepl('^I_M_',indicator), cat := 'IM']
+# 
+#     # Determine number of indicators per category
+#     dt.melt.ncat <- dt.melt[year==1 & !cat %in% c('IBCS','IM')][,list(ncat = .N),by='cat']
+# 
+#     # add weighing factor to indicator values
+#     dt.melt <- merge(dt.melt,w[,list(crop_category,indicator,weight_nonpeat,weight_peat)],
+#                      by = c('crop_category','indicator'), all.x = TRUE)
+# 
+#     # calculate correction factor for indicator values (low values have more impact than high values, a factor 5)
+#     dt.melt[,cf := cf_ind_importance(value)]
+# 
+#     # calculate weighted value for crop category
+#     dt.melt[,value.w := value]
+#     dt.melt[grepl('veen',B_SOILTYPE_AGR) & weight_peat < 0,value.w := -999]
+#     dt.melt[!grepl('veen',B_SOILTYPE_AGR) & weight_nonpeat < 0,value.w := -999]
 
 ## ----results=FALSE, eval=FALSE------------------------------------------------
-#      # subset dt.melt for relevant columns only
-#      out.score <-  dt.melt[,list(cat, year, cf, value = value.w)]
-#  
-#      # remove indicator categories that are not used for scoring
-#      out.score <- out.score[!cat %in% c('IBCS','IM','BCS')]
-#  
-#      # calculate weighted average per indicator category
-#      out.score <- out.score[,list(value = sum(cf * pmax(0,value) / sum(cf[value >= 0]))), by = list(cat,year)]
-#  
-#      # for case that a cat has one indicator or one year and has NA
-#      out.score[is.na(value), value := -999]
+#     # subset dt.melt for relevant columns only
+#     out.score <-  dt.melt[,list(cat, year, cf, value = value.w)]
+# 
+#     # remove indicator categories that are not used for scoring
+#     out.score <- out.score[!cat %in% c('IBCS','IM','BCS')]
+# 
+#     # calculate weighted average per indicator category
+#     out.score <- out.score[,list(value = sum(cf * pmax(0,value) / sum(cf[value >= 0]))), by = list(cat,year)]
+# 
+#     # for case that a cat has one indicator or one year and has NA
+#     out.score[is.na(value), value := -999]
 
 ## ----aggreagate indicators per category, results= FALSE, eval=FALSE-----------
-#      # calculate correction factor per year; recent years are more important
-#      out.score[,cf := log(12 - pmin(10,year))]
-#  
-#      # calculate weighted average per indicator category per year
-#      out.score <- out.score[,list(value = sum(cf * pmax(0,value)/ sum(cf[value >= 0]))), by = cat]
+#     # calculate correction factor per year; recent years are more important
+#     out.score[,cf := log(12 - pmin(10,year))]
+# 
+#     # calculate weighted average per indicator category per year
+#     out.score <- out.score[,list(value = sum(cf * pmax(0,value)/ sum(cf[value >= 0]))), by = cat]
 
 ## ----holistic obi score, results = FALSE, eval = FALSE------------------------
-#    # merge out with number per category
-#    out.score <- merge(out.score,dt.melt.ncat, by='cat')
-#  
-#    # calculate weighing factor depending on number of indicators
-#    out.score[,cf := log(ncat + 1)]
-#  
-#    # calculated final obi score
-#    out.score <- rbind(out.score[,list(cat,value)],
-#                       out.score[,list(cat = "T",value = sum(value * cf / sum(cf)))])
+#   # merge out with number per category
+#   out.score <- merge(out.score,dt.melt.ncat, by='cat')
+# 
+#   # calculate weighing factor depending on number of indicators
+#   out.score[,cf := log(ncat + 1)]
+# 
+#   # calculated final obi score
+#   out.score <- rbind(out.score[,list(cat,value)],
+#                      out.score[,list(cat = "T",value = sum(value * cf / sum(cf)))])
 
 ## ----results = FALSE, eval = FALSE--------------------------------------------
-#    # For example
-#    OBIC::obic_field_dt(binnenveld[ID == 1], output = 'scores')
-#  
-#    OBIC::obic_field_dt(binnenveld[ID == 1], output = 'obic_score')
+#   # For example
+#   OBIC::obic_field_dt(binnenveld[ID == 1], output = 'scores')
+# 
+#   OBIC::obic_field_dt(binnenveld[ID == 1], output = 'obic_score')
 
 ## ----eval = TRUE, echo=FALSE--------------------------------------------------
   OBIC::obic_field_dt(binnenveld[ID == 1], output = 'scores')

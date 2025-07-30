@@ -23,64 +23,64 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   
 
 ## ----reformatting code, echo = TRUE, eval=FALSE-------------------------------
-#    # Step 3 Reformat dt given weighing per indicator and prepare for aggregation  ------------------
-#  
-#      # load weights.obic (set indicator to zero when not applicable)
-#      w <- as.data.table(OBIC::weight.obic)
-#  
-#      # Add years per field
-#      dt[,year := 1:.N, by = ID]
-#  
-#      # Select all indicators used for scoring
-#      cols <- colnames(dt)[grepl('I_C|I_B|I_P|I_E|I_M|year|crop_cat|SOILT',colnames(dt))]
-#  
-#      # Melt dt and assign main categories for OBI
-#      dt.melt <- melt(dt[,mget(cols)],
-#                      id.vars = c('B_SOILTYPE_AGR','crop_category','year'),
-#                      variable.name = 'indicator')
-#  
-#      # add categories relevant for aggregating
-#      # C = chemical, P = physics, B = biological, BCS = visual soil assessment
-#      # indicators not used for integrating: IBCS and IM
-#      dt.melt[,cat := tstrsplit(indicator,'_',keep = 2)]
-#      dt.melt[grepl('_BCS$',indicator) & indicator != 'I_BCS', cat := 'IBCS']
-#      dt.melt[grepl('^I_M_',indicator), cat := 'IM']
-#  
-#      # Determine number of indicators per category
-#      dt.melt.ncat <- dt.melt[year==1 & !cat %in% c('IBCS','IM')][,list(ncat = .N),by='cat']
-#  
-#      # add weighing factor to indicator values
-#      dt.melt <- merge(dt.melt,w[,list(crop_category,indicator,weight_nonpeat,weight_peat)],
-#                       by = c('crop_category','indicator'), all.x = TRUE)
-#  
-#      # calculate correction factor for indicator values (low values have more impact than high values, a factor 5)
-#      dt.melt[,cf := cf_ind_importance(value)]
-#  
-#      # calculate weighted value for crop category
-#      dt.melt[,value.w := value]
-#      dt.melt[grepl('veen',B_SOILTYPE_AGR) & weight_peat < 0,value.w := -999]
-#      dt.melt[!grepl('veen',B_SOILTYPE_AGR) & weight_nonpeat < 0,value.w := -999]
-#  
+#   # Step 3 Reformat dt given weighing per indicator and prepare for aggregation  ------------------
+# 
+#     # load weights.obic (set indicator to zero when not applicable)
+#     w <- as.data.table(OBIC::weight.obic)
+# 
+#     # Add years per field
+#     dt[,year := 1:.N, by = ID]
+# 
+#     # Select all indicators used for scoring
+#     cols <- colnames(dt)[grepl('I_C|I_B|I_P|I_E|I_M|year|crop_cat|SOILT',colnames(dt))]
+# 
+#     # Melt dt and assign main categories for OBI
+#     dt.melt <- melt(dt[,mget(cols)],
+#                     id.vars = c('B_SOILTYPE_AGR','crop_category','year'),
+#                     variable.name = 'indicator')
+# 
+#     # add categories relevant for aggregating
+#     # C = chemical, P = physics, B = biological, BCS = visual soil assessment
+#     # indicators not used for integrating: IBCS and IM
+#     dt.melt[,cat := tstrsplit(indicator,'_',keep = 2)]
+#     dt.melt[grepl('_BCS$',indicator) & indicator != 'I_BCS', cat := 'IBCS']
+#     dt.melt[grepl('^I_M_',indicator), cat := 'IM']
+# 
+#     # Determine number of indicators per category
+#     dt.melt.ncat <- dt.melt[year==1 & !cat %in% c('IBCS','IM')][,list(ncat = .N),by='cat']
+# 
+#     # add weighing factor to indicator values
+#     dt.melt <- merge(dt.melt,w[,list(crop_category,indicator,weight_nonpeat,weight_peat)],
+#                      by = c('crop_category','indicator'), all.x = TRUE)
+# 
+#     # calculate correction factor for indicator values (low values have more impact than high values, a factor 5)
+#     dt.melt[,cf := cf_ind_importance(value)]
+# 
+#     # calculate weighted value for crop category
+#     dt.melt[,value.w := value]
+#     dt.melt[grepl('veen',B_SOILTYPE_AGR) & weight_peat < 0,value.w := -999]
+#     dt.melt[!grepl('veen',B_SOILTYPE_AGR) & weight_nonpeat < 0,value.w := -999]
+# 
 
 ## ----eval = FALSE, include = FALSE--------------------------------------------
-#  # YF: I think this paragraph is not necessary
-#  # After reformatting the data in step 3, an indicator data.table is created in step 4. This data.table uses the soil function scores adjusted for their applicability for the soiltype and crop category. In step 4 indicators are calculated to display them as output. In step 5 the total OBI score is calculated, since part of step 5 overlaps with step 4, we only discuss step 5 onwards.
+# # YF: I think this paragraph is not necessary
+# # After reformatting the data in step 3, an indicator data.table is created in step 4. This data.table uses the soil function scores adjusted for their applicability for the soiltype and crop category. In step 4 indicators are calculated to display them as output. In step 5 the total OBI score is calculated, since part of step 5 overlaps with step 4, we only discuss step 5 onwards.
 
 ## ----echo = TRUE, eval=FALSE--------------------------------------------------
-#   # Step 5 Add scores ------------------
-#  
-#      # subset dt.melt for relevant columns only
-#      out.score <-  dt.melt[,list(cat, year, cf, value = value.w)]
-#  
-#      # remove indicator categories that are not used for scoring
-#      out.score <- out.score[!cat %in% c('IBCS','IM','BCS')]
+#  # Step 5 Add scores ------------------
+# 
+#     # subset dt.melt for relevant columns only
+#     out.score <-  dt.melt[,list(cat, year, cf, value = value.w)]
+# 
+#     # remove indicator categories that are not used for scoring
+#     out.score <- out.score[!cat %in% c('IBCS','IM','BCS')]
 
 ## ----echo = TRUE, eval=FALSE--------------------------------------------------
-#      # calculate weighted average per indicator category
-#      out.score <- out.score[,list(value = sum(cf * pmax(0,value) / sum(cf[value >= 0]))), by = list(cat,year)]
-#  
-#        # for case that a cat has one indicator or one year and has NA
-#        out.score[is.na(value), value := -999]
+#     # calculate weighted average per indicator category
+#     out.score <- out.score[,list(value = sum(cf * pmax(0,value) / sum(cf[value >= 0]))), by = list(cat,year)]
+# 
+#       # for case that a cat has one indicator or one year and has NA
+#       out.score[is.na(value), value := -999]
 
 ## ----output year cf-----------------------------------------------------------
   # create data
@@ -89,32 +89,32 @@ knitr::include_graphics('../vignettes/OBIC_score_integratie_2.png')
   cat(round(cf, 3))
 
 ## ----echo = TRUE, eval=FALSE--------------------------------------------------
-#  
-#      # calculate correction factor per year; recent years are more important
-#      out.score[,cf := log(12 - pmin(10,year))]
-#  
-#      # calculate weighted average per indicator category per year
-#      out.score <- out.score[,list(value = sum(cf * pmax(0,value)/ sum(cf[value >= 0]))), by = cat]
+# 
+#     # calculate correction factor per year; recent years are more important
+#     out.score[,cf := log(12 - pmin(10,year))]
+# 
+#     # calculate weighted average per indicator category per year
+#     out.score <- out.score[,list(value = sum(cf * pmax(0,value)/ sum(cf[value >= 0]))), by = cat]
 
 ## ----echo = TRUE, eval=FALSE--------------------------------------------------
-#        # merge out with number per category
-#        out.score <- merge(out.score,dt.melt.ncat, by='cat')
+#       # merge out with number per category
+#       out.score <- merge(out.score,dt.melt.ncat, by='cat')
 
 ## ----eval = FALSE, include = FALSE--------------------------------------------
-#  # this text is probably wrong
-#  # Furthermore, by aggregating indicators to categories and then to a score rather than directly from indicators to a score; individual indicators from categories with few underlying indicators, affect the holistic score more than indicators in categories with many indicators. For example, if there is one biological indicator, its weight in affecting the holistic score is log(1+1)= `r round(log(1+1),2)`, while a indicator within a chemical indicator with nine indicators individually only weighs log(9+1)/9= `r round(log(9+1)/9,2)`. While on category level, biology only weighs `r round(log(1+1),2)` and chemical `r round(log(9+1),2)`.
+# # this text is probably wrong
+# # Furthermore, by aggregating indicators to categories and then to a score rather than directly from indicators to a score; individual indicators from categories with few underlying indicators, affect the holistic score more than indicators in categories with many indicators. For example, if there is one biological indicator, its weight in affecting the holistic score is log(1+1)= `r round(log(1+1),2)`, while a indicator within a chemical indicator with nine indicators individually only weighs log(9+1)/9= `r round(log(9+1)/9,2)`. While on category level, biology only weighs `r round(log(1+1),2)` and chemical `r round(log(9+1),2)`.
 
 ## ----echo = TRUE, eval=FALSE--------------------------------------------------
-#      # calculate weighing factor depending on number of indicators
-#      out.score[,cf := log(ncat + 1)]
-#      # calculated final obi score
-#      out.score <- rbind(out.score[,list(cat,value)],
-#                         out.score[,list(cat = "T",value = sum(value * cf / sum(cf)))])
+#     # calculate weighing factor depending on number of indicators
+#     out.score[,cf := log(ncat + 1)]
+#     # calculated final obi score
+#     out.score <- rbind(out.score[,list(cat,value)],
+#                        out.score[,list(cat = "T",value = sum(value * cf / sum(cf)))])
 
 ## ----echo = TRUE, eval=FALSE--------------------------------------------------
-#      # update element names
-#      out.score[,cat := paste0('S_',cat,'_OBI_A')]
-#      out.score[, value := round(value,3)]
+#     # update element names
+#     out.score[,cat := paste0('S_',cat,'_OBI_A')]
+#     out.score[, value := round(value,3)]
 
 ## ----make mock data, eval= TRUE-----------------------------------------------
 
@@ -540,18 +540,18 @@ ggplot(dt.out[cat == 'total'], aes(x = value, y = cf_method)) +
   dttt <- dtt[,.(treatment, cf_method, S_T_OBI_A = total)]
 
 ## ----plot original values, eval=FALSE, fig.width = 7, fig.height = 20,fig.fullwidth = TRUE, fig.cap = 'Figure 4. Distribution of indicator values  per scenario.'----
-#  # factorise dta cat levels
-#  # dta <- dta[, cat := factor(cat, levels = c('C', 'P', 'B', 'E'))]
-#  # dta <- dta[, indicator := factor(indicator, levels = c("I_C_CEC","I_C_CU", "I_C_K",  "I_C_MG", "I_C_N",  "I_C_P",  "I_C_PH", "I_C_S",  "I_C_ZN",
-#  #                                                        "I_P_CR", "I_P_DS", "I_P_DU", "I_P_SE", "I_P_WRI", "I_P_WS","I_P_CEC","I_P_CO",
-#  #                                                        "I_B_DI", "I_B_SF", "I_E_NGW","I_E_NSW"))]
-#  #
-#  # # plot
-#  # ggplot(dta, aes(x = value, y = indicator, color = cat))+
-#  #   geom_boxplot() +
-#  #   theme_bw() + coord_cartesian(xlim = c(0,1)) + scale_y_discrete(limits = rev)+
-#  #   facet_wrap(~treatment, ncol = 1)
-#  
+# # factorise dta cat levels
+# # dta <- dta[, cat := factor(cat, levels = c('C', 'P', 'B', 'E'))]
+# # dta <- dta[, indicator := factor(indicator, levels = c("I_C_CEC","I_C_CU", "I_C_K",  "I_C_MG", "I_C_N",  "I_C_P",  "I_C_PH", "I_C_S",  "I_C_ZN",
+# #                                                        "I_P_CR", "I_P_DS", "I_P_DU", "I_P_SE", "I_P_WRI", "I_P_WS","I_P_CEC","I_P_CO",
+# #                                                        "I_B_DI", "I_B_SF", "I_E_NGW","I_E_NSW"))]
+# #
+# # # plot
+# # ggplot(dta, aes(x = value, y = indicator, color = cat))+
+# #   geom_boxplot() +
+# #   theme_bw() + coord_cartesian(xlim = c(0,1)) + scale_y_discrete(limits = rev)+
+# #   facet_wrap(~treatment, ncol = 1)
+# 
 
 ## ----plot baselines scores zoomed in, fig.width = 7, fig.height = 2,fig.fullwidth = TRUE, fig.cap = 'Figure 4. Total OBI score per aggregation method for baseline sceinario.'----
 
@@ -593,16 +593,16 @@ gg3 <- ggplot(dt2[cat %in% c('S_T_cf_log',
 gg3 
 
 ## ----eval=FALSE---------------------------------------------------------------
-#    obic_field(B_SOILTYPE_AGR =  dt$B_SOILTYPE_AGR, B_GWL_CLASS =  dt$B_GWL_CLASS,
-#               B_SC_WENR = dt$B_SC_WENR, B_HELP_WENR = dt$B_HELP_WENR, B_AER_CBS = dt$B_AER_CBS,
-#               B_LU_BRP = dt$B_LU_BRP, A_SOM_LOI = dt$A_SOM_LOI, A_SAND_MI = dt$A_SAND_MI,
-#               A_SILT_MI = dt$A_SILT_MI, A_CLAY_MI = dt$A_CLAY_MI, A_PH_CC = dt$A_PH_CC,
-#               A_N_RT = dt$A_N_RT, A_CN_FR = dt$A_CN_FR,
-#               A_S_RT = dt$A_S_RT, A_N_PMN = dt$A_N_PMN,
-#               A_P_AL = dt$A_P_AL, A_P_CC = dt$A_P_CC, A_P_WA = dt$A_P_WA, A_CEC_CO = dt$A_CEC_CO,
-#               A_CA_CO_PO = dt$A_CA_CO_PO, A_MG_CO_PO = dt$A_MG_CO_PO, A_K_CO_PO = dt$A_K_CO_PO,
-#               A_K_CC = dt$A_K_CC, A_MG_CC = dt$A_MG_CC, A_MN_CC = dt$A_MN_CC,
-#               A_ZN_CC = dt$A_ZN_CC, A_CU_CC = dt$A_CU_CC, output = 'obic_score')
+#   obic_field(B_SOILTYPE_AGR =  dt$B_SOILTYPE_AGR, B_GWL_CLASS =  dt$B_GWL_CLASS,
+#              B_SC_WENR = dt$B_SC_WENR, B_HELP_WENR = dt$B_HELP_WENR, B_AER_CBS = dt$B_AER_CBS,
+#              B_LU_BRP = dt$B_LU_BRP, A_SOM_LOI = dt$A_SOM_LOI, A_SAND_MI = dt$A_SAND_MI,
+#              A_SILT_MI = dt$A_SILT_MI, A_CLAY_MI = dt$A_CLAY_MI, A_PH_CC = dt$A_PH_CC,
+#              A_N_RT = dt$A_N_RT, A_CN_FR = dt$A_CN_FR,
+#              A_S_RT = dt$A_S_RT, A_N_PMN = dt$A_N_PMN,
+#              A_P_AL = dt$A_P_AL, A_P_CC = dt$A_P_CC, A_P_WA = dt$A_P_WA, A_CEC_CO = dt$A_CEC_CO,
+#              A_CA_CO_PO = dt$A_CA_CO_PO, A_MG_CO_PO = dt$A_MG_CO_PO, A_K_CO_PO = dt$A_K_CO_PO,
+#              A_K_CC = dt$A_K_CC, A_MG_CC = dt$A_MG_CC, A_MN_CC = dt$A_MN_CC,
+#              A_ZN_CC = dt$A_ZN_CC, A_CU_CC = dt$A_CU_CC, output = 'obic_score')
 
 ## ----get binnenveld indicator values, eval=TRUE-------------------------------
 # cleanup bini if required
@@ -735,5 +735,5 @@ ggplot(dta) +
   theme_bw()
 
 ## ----eval = FALSE, include=FALSE----------------------------------------------
-#  # e.g. (van Wijnen et. al. 2012 and  Rutgers et. al. 2012) or Moebius-Clune 2016
+# # e.g. (van Wijnen et. al. 2012 and  Rutgers et. al. 2012) or Moebius-Clune 2016
 
