@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2025-07-30" />
+<meta name="date" content="2026-01-30" />
 
 <title>Description of the columns for OBIC</title>
 
@@ -49,8 +49,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +62,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -338,7 +339,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">Description of the columns for OBIC</h1>
-<h4 class="date">2025-07-30</h4>
+<h4 class="date">2026-01-30</h4>
 
 
 
@@ -737,11 +738,10 @@ day (in cm)</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
-<td align="left">B_DRAINAGE</td>
+<td align="left">B_DRAIN</td>
 <td align="left">measurement</td>
-<td align="left">Wordt het perceAre drains installed to drain the
-fieldel gedraineerd</td>
-<td align="left">NA</td>
+<td align="left">Wordt het perceel gedraineerd</td>
+<td align="left">Are drains installed to drain the field</td>
 <td align="left">ja/nee</td>
 <td align="left">NA</td>
 </tr>
@@ -931,6 +931,14 @@ analysis</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
+<td align="left">D_P_CO</td>
+<td align="left">derivative</td>
+<td align="left">Verdichtingsbeoordeling obv de bodemconditiescore</td>
+<td align="left">Visual soil assessment compaction score</td>
+<td align="left">-</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">D_PMN</td>
 <td align="left">derivative</td>
 <td align="left">Activiteit bodemleven</td>
@@ -938,7 +946,7 @@ analysis</td>
 <td align="left">mg N/kg</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">D_SE</td>
 <td align="left">derivative</td>
 <td align="left">Versplemping</td>
@@ -946,7 +954,7 @@ analysis</td>
 <td align="left">-</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">D_CR</td>
 <td align="left">derivative</td>
 <td align="left">Verkruimelbaarheid</td>
@@ -954,7 +962,7 @@ analysis</td>
 <td align="left">-</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">D_WE</td>
 <td align="left">derivative</td>
 <td align="left">Verstuivingsrisico</td>
@@ -962,7 +970,7 @@ analysis</td>
 <td align="left">-</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">D_AS</td>
 <td align="left">derivative</td>
 <td align="left">Aggregaatstabiliteit</td>
@@ -970,12 +978,20 @@ analysis</td>
 <td align="left">-</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">D_WSI_DS</td>
 <td align="left">derivative</td>
 <td align="left">Droogteschade</td>
 <td align="left">Drougthstress</td>
 <td align="left">%</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">D_WSI_K</td>
+<td align="left">derivative</td>
+<td align="left">Onverzadigde doorlatendheid</td>
+<td align="left">Unsaturated topsoil permeability</td>
+<td align="left">cm/d</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
@@ -1216,7 +1232,7 @@ grondwater</td>
 <td align="left">indicator</td>
 <td align="left">Ziektewerendheid</td>
 <td align="left">Disease / pest resistance</td>
-<td align="left">NA</td>
+<td align="left">-</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
@@ -1224,7 +1240,42 @@ grondwater</td>
 <td align="left">indicator</td>
 <td align="left">Activiteit bodemleven</td>
 <td align="left">Soil life activity</td>
+<td align="left">-</td>
 <td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">I_E_GWR</td>
+<td align="left">indicator</td>
+<td align="left">Grondwater aanvulling</td>
+<td align="left">Groundwater recharge</td>
+<td align="left">-</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">I_E_GW_NLEA</td>
+<td align="left">indicator</td>
+<td align="left">Efficientie van stikstofmeststoffen in relatie tot
+kwaliteit grondwater</td>
+<td align="left">Nitrogen efficiency for ground water</td>
+<td align="left">-</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">I_E_SW_NLEA</td>
+<td align="left">indicator</td>
+<td align="left">Efficientie van stikstofmeststoffen in relatie tot
+kwaliteit oppervlaktewater</td>
+<td align="left">Nitrogen efficiency for surface water</td>
+<td align="left">-</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">I_E_PEST</td>
+<td align="left">indicator</td>
+<td align="left">Uitspoelingsrisico gewasbestrijdingsmiddelen naar
+grondwater</td>
+<td align="left">Leaching risk of pesticides to groundwater</td>
+<td align="left">-</td>
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
@@ -1236,7 +1287,7 @@ grondwater</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
-<td align="left">I_E_NGW</td>
+<td align="left">I_E_GW_NRET</td>
 <td align="left">indicator</td>
 <td align="left">N vasthoudend vermogen voor grondwater</td>
 <td align="left">Nitrogen retention for ground water</td>
@@ -1244,7 +1295,7 @@ grondwater</td>
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
-<td align="left">I_E_NSW</td>
+<td align="left">I_E_SW_NRET</td>
 <td align="left">indicator</td>
 <td align="left">N vasthoudend vermogen voor oppervlaktewater</td>
 <td align="left">Nitrogen retention for surface water</td>
