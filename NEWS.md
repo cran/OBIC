@@ -1,3 +1,12 @@
+# OBIC 4.2.3 2026-02-11
+## Changed
+* Rename organization of repo to `nmi-agro`
+
+# OBIC 4.2.2 2026-02-03
+## Changed
+* Adjusted the interpolation of nitrogen leaching to surface and groundwater recorded
+in table nleach_table
+
 # OBIC 4.2.1 2026-01-30
 ## Added
 * Adds GitHub action to check the package on R-hub
