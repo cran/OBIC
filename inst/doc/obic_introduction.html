@@ -12,7 +12,7 @@
 
 <meta name="author" content="Gerard Ros, Brent Riechelman" />
 
-<meta name="date" content="2026-02-11" />
+<meta name="date" content="2026-07-02" />
 
 <title>The Open Soil Index</title>
 
@@ -151,7 +151,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 div.csl-bib-body { }
 div.csl-entry {
 clear: both;
-margin-bottom: 0em;
 }
 .hanging div.csl-entry {
 margin-left:2em;
@@ -364,7 +363,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">The Open Soil Index</h1>
 <h4 class="author">Gerard Ros, Brent Riechelman</h4>
-<h4 class="date">2026-02-11</h4>
+<h4 class="date">2026-07-02</h4>
 
 
 
@@ -414,10 +413,9 @@ science, and farmer groups collaborated to bring together existing data
 from routine soil laboratories, smart data retrieval from satellites,
 and insights from fundamental and applied research, in a transparent and
 scientifically underpinned soil assessment framework. The framework is
-highly influenced by the Soil Management Assessment Framework <span class="citation">(Andrews and Carroll 2001; Wienhold, Andrews, and
-Karlen 2004; Wienhold et al. 2009)</span> and the proposed holistic,
-multivariate soil health framework from <span class="citation">Rinot et
-al. (2019)</span>.</p>
+highly influenced by the Soil Management Assessment Framework <span class="citation">(Andrews and Carroll 2001; Wienhold et al. 2004,
+2009)</span> and the proposed holistic, multivariate soil health
+framework from <span class="citation">Rinot et al. (2019)</span>.</p>
 </div>
 <div id="the-open-soil-index-framework" class="section level3">
 <h3>The Open Soil Index Framework</h3>
@@ -483,8 +481,7 @@ measurements (all variables starting with “A_”)</li>
 <li>measurements done via a Visual Soil Assessment Form (optional, all
 variables starting with “A_” and ending with “BCS”). For details, see
 the Assessment Form of the <a href="https://mijnbodemconditie.nl/download/">Bodemconditiescore</a>
-<span class="citation">(Sonneveld, Heuvelink, and Moolenaar
-2014)</span>.</li>
+<span class="citation">(Sonneveld et al. 2014)</span>.</li>
 <li>soil management measures taken (optional, all variables starting
 with “M_”)</li>
 </ul>
@@ -1097,11 +1094,10 @@ sandblasting.</p>
 from those properties controlling the susceptibility for both risks.
 These include the clay content as well as the organic matter content,
 where the vulnerability for sealing is derived from field expert-based
-observations and associated yield depression <span class="citation">(J.
-Th. M. Huinink 2018; Heeres and Erp 1999)</span> in particular for some
-arable crops. The presence of soil sealing can be estimated via the
-function <code>calc_sealing_risk</code> whereas the risk for soil
-erosion due to wind is estimated via the function
+observations and associated yield depression <span class="citation">(Huinink 2018; Heeres and Erp 1999)</span> in
+particular for some arable crops. The presence of soil sealing can be
+estimated via the function <code>calc_sealing_risk</code> whereas the
+risk for soil erosion due to wind is estimated via the function
 <code>calc_winderodibility</code>. The wind erodibility can be estimated
 from the inputs land use, clay and silt content of the topsoil whereas
 the risk for sealing depends on the clay content as well as the organic
@@ -1141,7 +1137,7 @@ poorer.</p>
 <p>Similarly to the vulnerability to sealing and wind erodibility, the
 crumbleability of a soil (a measure for aggregate stability) as well as
 the potential risk for yield depressions (crop specific) can be derived
-from the clay content, the organic matter content, and the pH <span class="citation">(J. Th. M. Huinink 2011)</span>. Aggregate stability is
+from the clay content, the organic matter content, and the pH <span class="citation">(Huinink 2011)</span>. Aggregate stability is
 additionally evaluated given the cation occupation of the cation
 exchange capacity. Clayey soils with 80% Ca, 8% Mg, and about 3.5% K are
 recognized as soils with more stable aggregates due to the influence of
@@ -1165,7 +1161,7 @@ a soil where 100% of the CEC is occupied with a variable contribution of
 the three cations. The highest aggregate stability is found when the
 distance to the optimum is the lowest, being around a Ca occupation of
 about 85% of the CEC.</p>
-<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
 <div id="subsoil-compaction" class="section level4">
 <h4>Subsoil compaction</h4>
 <p>Soil compaction is caused by the use of excessively heavy machinery
@@ -1197,14 +1193,13 @@ of this risk assessment map.</p>
 <h3>Visual Soil Assessment</h3>
 <p>Within the OBIC, the estimates of aggregate stability and risk of
 subsoil compaction can be adapted to local site specific insights
-derived from the Visual Soil Assessment Methodology <span class="citation">(Sonneveld, Heuvelink, and Moolenaar 2014)</span>.
-Visual soil assessments (VSA) is an assessment of soil quality in the
-field, by digging a hole and assessing several soil quality indicators
-visually. Soil quality indicators are: grass cover, number of roots,
-number of biopores, soil color, soil structure, soil compaction, and
-number of gray spots. Visual soil assessments are more and more used by
-farmers in the Netherlands, but not specifically developed for various
-soil types.</p>
+derived from the Visual Soil Assessment Methodology <span class="citation">(Sonneveld et al. 2014)</span>. Visual soil assessments
+(VSA) is an assessment of soil quality in the field, by digging a hole
+and assessing several soil quality indicators visually. Soil quality
+indicators are: grass cover, number of roots, number of biopores, soil
+color, soil structure, soil compaction, and number of gray spots. Visual
+soil assessments are more and more used by farmers in the Netherlands,
+but not specifically developed for various soil types.</p>
 <p>Below is illustrated how the obic_field wrapper deals with the
 parameters derived from the VSA methodology. The score derived from the
 original risk assessment map for subsoil compaction is overwritten with
@@ -1265,11 +1260,11 @@ present as a film around individual soil particles. The potential under
 these conditions is around -18 bar. The amount of moisture present
 between field capacity and wilting point is defined as the amount of
 plant-available water.</p>
-<p>The review study of various soil health instruments <span class="citation">(E. K. Bünemann et al. 2016)</span> identifies a
-variety of indicators that can be used to gain more insight into the
-water retaining capacity of a soil. Frequently used indicators are the
-amount of plant-available water (14 x), the water holding capacity (11
-x), the moisture content at field capacity (11 x), and the saturated
+<p>The review study of various soil health instruments <span class="citation">(Bünemann et al. 2016)</span> identifies a variety of
+indicators that can be used to gain more insight into the water
+retaining capacity of a soil. Frequently used indicators are the amount
+of plant-available water (14 x), the water holding capacity (11 x), the
+moisture content at field capacity (11 x), and the saturated
 permeability (10 x). These indicators can be measured or estimated
 indirectly via so-called pedotransfer functions <span class="citation">(Wösten et al. 2001)</span>.</p>
 <p>The OBIC includes functions to derive the following water-related
@@ -1866,30 +1861,27 @@ soil function.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Andrews2001" class="csl-entry">
 Andrews, Susan S, and C Ronald Carroll. 2001. <span>“<span class="nocase">Designing a soil quality assessment tool for sustainable
 agroecosystem management</span>.”</span> <em>Ecological
 Applications</em> 11 (6): 1573–85.
 </div>
 <div id="ref-R-data.table" class="csl-entry">
-Barrett, Tyson, Matt Dowle, Arun Srinivasan, Jan Gorecki, Michael
-Chirico, Toby Hocking, Benjamin Schwendinger, and Ivan Krylov. 2026.
+Barrett, Tyson, Matt Dowle, Arun Srinivasan, et al. 2026.
 <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://r-datatable.com">https://r-datatable.com</a>.
 </div>
 <div id="ref-Bunemann2016" class="csl-entry">
-Bünemann, E K, P Mäder, J Wohlfahrt, L Brussaard, G Bongiorno, R De
-Goede, V Geissen, L Fleskens, W Sukkel, and Z Bai. 2016. <span>“<span class="nocase">Concepts and indicators of soil quality-a
+Bünemann, E K, P Mäder, J Wohlfahrt, et al. 2016. <span>“<span class="nocase">Concepts and indicators of soil quality-a
 review</span>.”</span> <em>Interactive Soil Quality Assessment in Europe
 and China for Agricultural Productivity and Environmental
 Resilience</em>, 1–76.
 </div>
 <div id="ref-Bunemann2018" class="csl-entry">
-Bünemann, Else K, Giulia Bongiorno, Zhanguo Bai, Rachel E Creamer,
-Gerlinde De Deyn, Ron de Goede, Luuk Fleskens, Violette Geissen, Thom W
-Kuyper, and Paul Mäder. 2018. <span>“<span class="nocase">Soil quality–A
-critical review</span>.”</span> <em>Soil Biology and Biochemistry</em>
-120: 105–25.
+Bünemann, Else K, Giulia Bongiorno, Zhanguo Bai, et al. 2018.
+<span>“<span class="nocase">Soil quality–A critical
+review</span>.”</span> <em>Soil Biology and Biochemistry</em> 120:
+105–25.
 </div>
 <div id="ref-Heeres1999" class="csl-entry">
 Heeres, E, and P J van Erp. 1999. <span>“<span class="nocase">Organic
@@ -1897,15 +1889,15 @@ matter in relation to the susceptability of agricultural soils to
 slaking</span>.”</span> <em>Meststoffen (Netherlands)</em>.
 </div>
 <div id="ref-Huinink2011" class="csl-entry">
-Huinink, J. Th. M. 2011. <span>“<span class="nocase">Bodemgeschiktheidsbeoordeling voor Landbouw , Bosbouw en
+Huinink, J. Th. M. 2011. <em><span class="nocase">Bodemgeschiktheidsbeoordeling voor Landbouw , Bosbouw en
 Recreatie: een optimalisatie van grondwater- en
-opppervlaktewaterpeilbeheer</span>.”</span> BodemConsult-Arnhem.
+opppervlaktewaterpeilbeheer</span></em>. BodemConsult-Arnhem.
 </div>
 <div id="ref-Huinink2018" class="csl-entry">
-Huinink, J.Th.M. 2018. <span>“<span class="nocase">Bodem/perceel
+Huinink, J.Th.M. 2018. <em><span class="nocase">Bodem/perceel
 geschiktheidsbeoordeling voor Landbouw, Bosbouw en Recreatie: t.b.v. een
 optimalisatie van grondwater- en oppervlaktewaterpeilbeheer: state of
-the art 2018</span>.”</span> BodemConsult-Arnhem.
+the art 2018</span></em>. BodemConsult-Arnhem.
 </div>
 <div id="ref-Locher1990" class="csl-entry">
 Locher, W P, and H De Bakker. 1990. <em><span class="nocase">Bodemkunde
@@ -1916,9 +1908,8 @@ Pedersen, Thomas Lin. 2025. <em>Patchwork: The Composer of Plots</em>.
 <a href="https://patchwork.data-imaginist.com">https://patchwork.data-imaginist.com</a>.
 </div>
 <div id="ref-R-base" class="csl-entry">
-R Core Team. 2025. <em>R: A Language and Environment for Statistical
-Computing</em>. Vienna, Austria: R Foundation for Statistical Computing.
-<a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+R Core Team. 2026. <em>R: A Language and Environment for Statistical
+Computing</em>. R Foundation for Statistical Computing. <a href="https://doi.org/10.32614/R.manuals">https://doi.org/10.32614/R.manuals</a>.
 </div>
 <div id="ref-Rinot2019" class="csl-entry">
 Rinot, Oshri, Guy J Levy, Yosef Steinberger, Tal Svoray, and Gil Eshel.
@@ -1933,15 +1924,14 @@ technique at site and farm level</span>.”</span> <em>Soil Use and
 Management</em> 30 (2): 263–71.
 </div>
 <div id="ref-R-OBIC" class="csl-entry">
-Verweij, Sven, Gerard Ros, Yuki Fujita, Wilbrand Hendrik Riechelman, and
-Kees van den Dool. 2026. <em>OBIC: Calculate the Open Bodem Index (OBI)
-Score</em>. <a href="https://github.com/nmi-agro/Open-Bodem-Index-Calculator">https://github.com/nmi-agro/Open-Bodem-Index-Calculator</a>.
+<span class="nocase">Verweij, Sven, Gerard Ros, Yuki Fujita, Wilbrand
+Hendrik Riechelman, and Kees van den Dool</span>. 2026. <em>OBIC:
+Calculate the Open Bodem Index (OBI) Score</em>. <a href="https://github.com/nmi-agro/Open-Bodem-Index-Calculator">https://github.com/nmi-agro/Open-Bodem-Index-Calculator</a>.
 </div>
 <div id="ref-R-ggplot2" class="csl-entry">
-Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen,
-Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey
-Dunnington, and Teun van den Brand. 2026. <em>Ggplot2: Create Elegant
-Data Visualisations Using the Grammar of Graphics</em>. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+<span class="nocase">Wickham, Hadley, Winston Chang, Lionel Henry, et
+al.</span> 2026. <em>Ggplot2: Create Elegant Data Visualisations Using
+the Grammar of Graphics</em>. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
 </div>
 <div id="ref-Wienhold2004" class="csl-entry">
 Wienhold, Brian J, S S Andrews, and D L Karlen. 2004. <span>“<span class="nocase">Soil quality: a review of the science and experiences in
@@ -1956,9 +1946,9 @@ Agriculture and Food Systems</em>, 260–66.
 </div>
 <div id="ref-Wosten2001" class="csl-entry">
 Wösten, J. H. M., J. G. Veerman, W. J. M. de Groot, and J. Stolte. 2001.
-<span>“<span class="nocase">Waterretentie- en doorlatendheids-
+<em><span class="nocase">Waterretentie- en doorlatendheids-
 karakteristieken van boven en ondergronden in Nederland: de
-Staringreeks</span>.”</span> Wageningen: Alterra. <a href="https://edepot.wur.nl/43272">https://edepot.wur.nl/43272</a>.
+Staringreeks</span></em>. Alterra. <a href="https://edepot.wur.nl/43272">https://edepot.wur.nl/43272</a>.
 </div>
 </div>
 </div>
