@@ -138,7 +138,7 @@ test_that('obic_field_dt works with extended OBI', {
       I_C_PH = 0.15,
       I_C_S = 0.26,
       I_C_ZN = 0.561,
-      I_E_GWR = 0.84,
+      I_E_GWR = 0.855,
       I_E_GW_NLEA = 0.987,
       I_E_GW_NRET = 0.987,
       I_E_PEST = 0.023,
@@ -218,10 +218,10 @@ test_that('obic_field_dt() works with just required columns', {
         ID = 1,
         S_B_OBI_A = 0.900,
         S_C_OBI_A = 0.537,
-        S_E_OBI_A = 0.658,
+        S_E_OBI_A = 0.646,
         S_M_OBI_A = 0.287,
         S_P_OBI_A = 0.571,
-        S_T_OBI_A = 0.602,
+        S_T_OBI_A = 0.599,
         key = 'ID'
       ),
     tolerance = 0.01

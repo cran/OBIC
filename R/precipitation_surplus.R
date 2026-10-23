@@ -132,7 +132,7 @@ ind_psp <- function(D_PSP,B_LU_BRP){
                    B_LU_BRP)
   
   # Calculate indicator score
-  dt[,I_PSP := evaluate_logistic(D_PSP,0.05,300,2.5)]
+  dt[,I_PSP := evaluate_logistic(D_PSP,0.02,300,2.5)]
   
   # Format output
   out <- dt[,I_PSP]

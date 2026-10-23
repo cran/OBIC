@@ -1,3 +1,29 @@
+# OBIC 4.4.1 2026-10-20
+## Fixed
+* `calc_management()` and `calc_man_ess()` only credited compost on grassland when
+`M_COMPOST` was exactly 1. Since `M_COMPOST` is a frequency in years, `M_COMPOST == TRUE`
+compared it against 1, so applying compost every 3 or 5 years scored as no compost at all.
+Grassland now uses `M_COMPOST > 0`, matching the arable, maize and nature branches.
+
+# OBIC 4.4.0 2026-10-16
+## Added
+* Argument `B_GWL_GHG` (mean highest groundwater level, cm below ground level) to `ind_gw_recharge()`
+
+## Changed
+* Updated a coefficient value of evaluation function of PSP in calculation of `D_I_PSP` so that the evaluation of crops with low PSP (e.g. grassland) becomes less strict.
+* The drainage correction in `ind_gw_recharge()` now applies to drained fields with `B_GWL_GHG <= 80` cm,
+instead of fields with groundwater table class IIIb or IV [#216]. 
+Scores for groundwater recharge of drained fields with a GHG of at most 80 cm will change.
+* `obic_field()` now passes `B_GWL_GHG` instead of `B_GWL_CLASS` to `ind_gw_recharge()`
+
+## Deprecated
+* Argument `B_GWL_CLASS` of `ind_gw_recharge()` is deprecated, use `B_GWL_GHG` instead. 
+`B_GWL_CLASS` is still accepted but gives a warning. When only `B_GWL_CLASS` is provided,
+`B_GWL_GHG` is estimated from the groundwater table class, such that classes I to VId 
+(except IVc) are treated as `B_GWL_GHG <= 80` cm and classes IVc, VII and VIII as `B_GWL_GHG > 80` cm.
+When both are provided, only `B_GWL_GHG` is used. `B_GWL_CLASS` will be removed from 
+`ind_gw_recharge()` in a future version.
+
 # OBIC 4.3.0 2026-07-02
 ## Added
 * New cultivations for BRP 2026 to `crops.obic` [crop_name (crop_code)]:

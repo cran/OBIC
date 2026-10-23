@@ -11,10 +11,11 @@ ind_gw_recharge(
   I_P_SE = NULL,
   I_P_CO = NULL,
   B_DRAIN,
-  B_GWL_CLASS,
+  B_GWL_CLASS = NULL,
   D_SE = NULL,
   B_SC_WENR = NULL,
-  D_P_CO = NULL
+  D_P_CO = NULL,
+  B_GWL_GHG = NULL
 )
 }
 \arguments{
@@ -30,13 +31,15 @@ ind_gw_recharge(
 
 \item{B_DRAIN}{(boolean) Are drains installed to drain the field (options: yes or no)}
 
-\item{B_GWL_CLASS}{(character) The groundwater table class}
+\item{B_GWL_CLASS}{(character) The groundwater table class (deprecated, provide B_GWL_GHG instead)}
 
 \item{D_SE}{(numeric) The value of soil sealing calculated by \code{\link{calc_sealing_risk}}}
 
 \item{B_SC_WENR}{(character) The risk for subsoil compaction as derived from risk assessment study of Van den Akker (2006)}
 
 \item{D_P_CO}{(numeric) Compaction value based on visual soil assessment (see Details)}
+
+\item{B_GWL_GHG}{(numeric) The highest groundwater level averaged over the most wet periods in 8 years in cm below ground level}
 }
 \value{
 The evaluated score for the soil function to improve groundwater recharge. A numeric value between 0 and 1.
@@ -45,17 +48,24 @@ The evaluated score for the soil function to improve groundwater recharge. A num
 This function calculates an index score for groundwater storage based on precipitation surplus, infiltration at saturation, sealing risk, drainage and subsoil compaction
 }
 \details{
-Soil compaction risk can be assessed either with the soilcompaction risk map 
-(B_SC_WENR) or visual soil assessment (VSA) (D_P_CO). D_P_CO itself is calculated 
+Soil compaction risk can be assessed either with the soilcompaction risk map
+(B_SC_WENR) or visual soil assessment (VSA) (D_P_CO). D_P_CO itself is calculated
 from the VSA scoring of earthworms, compaction, rooting depth, and puddling:
 D_P_CO = (3 x A_EW_BCS + 3 x A_SC_BCS + 3 x A_RD_BCS  - 2 x A_P_BCS - A_RT_BCS)/18 where
 the .*_BCS variables have the values 0, 1, or 2. When both B_SC_WENR and D_P_CO
 are provided, D_P_CO is used as it is considered more accurate determination of compaction.
+
+Drainage reduces groundwater recharge when the field is drained (B_DRAIN = TRUE)
+and the mean highest groundwater level is at most 80 cm below ground level
+(B_GWL_GHG <= 80), following BLN3. The argument B_GWL_CLASS is deprecated. When only
+B_GWL_CLASS is provided, B_GWL_GHG is estimated from the groundwater table class,
+such that classes I to VId (except IVc) are considered to have B_GWL_GHG <= 80. When both are
+provided, only B_GWL_GHG is used.
 }
 \examples{
 ind_gw_recharge(B_LU_BRP = 265, D_PSP = 200, D_WRI_K = 10, B_DRAIN = FALSE,
- B_GWL_CLASS = 'V', D_SE = 2, B_SC_WENR = 'Groot')
+ B_GWL_GHG = 20, D_SE = 2, B_SC_WENR = 'Groot')
 ind_gw_recharge(B_LU_BRP = 233, D_PSP = 400, D_WRI_K = 10, B_DRAIN = TRUE,
- B_GWL_CLASS = 'II', D_SE = 5, D_P_CO = 0.2)
+ B_GWL_GHG = 15, D_SE = 5, D_P_CO = 0.2)
 
 }
